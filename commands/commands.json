@@ -4,5 +4,7 @@
     "RULES" : "rules",
     "RULESTO" : "rulesto",
     "HELP" : "help",
-    "STREAMS" : "streams"
+    "STREAMS" : "streams",
+    "GAMERS" : "gamers",
+    "PLAYERS" : "players"
 }

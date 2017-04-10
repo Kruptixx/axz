@@ -200,5 +200,26 @@
             "maricon",
             "perra"
         ]
+    },
+    "profanityPhrases" : {
+        "en" : [
+            "you are btch",
+            "u r btch"
+        ],
+        "ru" : [
+
+        ],
+        "de" : [
+            "verpiss dich",
+            "sohn einer hündin",
+            "sohn einer hundin"
+        ],
+        "fr" : [
+            "va te faire foutre",
+            "va te faire enculer"
+        ],
+        "es" : [
+
+        ]
     }
 }
