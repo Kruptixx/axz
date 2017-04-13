@@ -1,6 +1,7 @@
 const config = require("../config.json");
 const profanity = require("../misc/profanity.json");
 const rules = require("../misc/rules.json");
+const service = require("../main/service.js");
 
 module.exports.AutoFunctions = class {
 
@@ -9,10 +10,10 @@ module.exports.AutoFunctions = class {
             for (let i = 0; i < _lang.length; ++i) {
                 let patternStr = "(^|[0-9\\-!\\$%№\\^\\&\\*\\(\\)_\\+\\|~\\\"=\\\'`\\{\\}\\[\\]:/;\\<\\>\\?,\\.@#]|\\s)SAMPLE([0-9\\-!\\$%№\\^\\&\\*\\(\\)_\\+\\|~\\\"=\\\'`\\{\\}\\[\\]:/;\\<\\>\\?,\\.@#\\s]|$)";
                 let pattern = new RegExp(patternStr.replace(/SAMPLE/,
-                     _lang[i]), "gi");
+                     _lang[i]), "g"); // "gi"
                 if (pattern.test(_msg.content.toLowerCase())) {
                     _msg.channel.sendMessage("Profanity!\nPerpetrator: " +
-                    _msg.author + " | Time: " + _msg.createdAt.toDateString() +
+                    _msg.author + " | Time: " + _msg.createdAt +
                     " | Reason word: " + _lang[i]);
                     return;
                 }
@@ -41,10 +42,11 @@ module.exports.AutoFunctions = class {
             (_newMember.presence.game.streaming === true)) {
             try {
                 _newMember.guild.defaultChannel.sendMessage("@here\n***STREAM***\n\n" +
-                 _newMember.user + " just started streaming *" +
+                    _newMember.user + " just started streaming *" +
                     _oldMember.presence.game.name + "*\nWatch on " +
                     (_newMember.presence.game.url !== null ?
-                    _newMember.presence.game.url : "N/A"));
+                    service.Service.shortLink(_newMember.presence.game.url) :
+                    "N/A"));
             } catch (e) {
                 console.log("Error: " + e);
             }

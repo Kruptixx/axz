@@ -6,5 +6,9 @@
     "HELP" : "help",
     "STREAMS" : "streams",
     "GAMERS" : "gamers",
-    "PLAYERS" : "players"
+    "PLAYERS" : "players",
+    "INFO" : "info",
+    "SAY" : "say",
+    "SETGAME" : "setgame",
+    "ROBOT" : "robot"
 }

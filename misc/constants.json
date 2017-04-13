@@ -1,4 +1,6 @@
 {
       "STATUS": "Status: ",
+      "MESSAGEcnsl" : "Message: ",
+      "USERcnsl" : "USER: ",
       "SPACE": " "
 }
