@@ -1,14 +1,16 @@
 {
-    "TEST" : "test",
-    "AUTHOR" : "author",
-    "RULES" : "rules",
-    "RULESTO" : "rulesto",
-    "HELP" : "help",
-    "STREAMS" : "streams",
-    "GAMERS" : "gamers",
-    "PLAYERS" : "players",
-    "INFO" : "info",
-    "SAY" : "say",
-    "SETGAME" : "setgame",
-    "ROBOT" : "robot"
+    "TEST": "test",
+    "AUTHOR": "author",
+    "RULES": "rules",
+    "RULESTO": "rulesto",
+    "HELP": "help",
+    "STREAMS": "streams",
+    "GAMERS": "gamers",
+    "PLAYERS": "players",
+    "INFO": "info",
+    "SAY": "say",
+    "SETGAME": "setgame",
+    "ROBOT": "robot",
+    "WEATHER": "weather",
+    "WEATHERF": "weatherf"
 }

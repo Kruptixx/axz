@@ -1,6 +1,6 @@
 {
-    "profanity" : {
-        "en" : [
+    "profanity": {
+        "en": [
             "bitch",
             "bitches",
             "fuck",
@@ -27,7 +27,7 @@
             "cretin",
             "shit"
         ],
-        "ru" : [
+        "ru": [
             "сука",
             "сучара",
             "сцуко",
@@ -186,7 +186,7 @@
             "fotze",
             "hurensohn"
         ],
-        "fr" : [
+        "fr": [
             "merde",
             "putain",
             "branleur",
@@ -194,31 +194,31 @@
             "cretin",
             "connard"
         ],
-        "es" : [
+        "es": [
             "pendejo",
             "maricón",
             "maricon",
             "perra"
         ]
     },
-    "profanityPhrases" : {
-        "en" : [
+    "profanityPhrases": {
+        "en": [
             "you are btch",
             "u r btch"
         ],
-        "ru" : [
+        "ru": [
 
         ],
-        "de" : [
+        "de": [
             "verpiss dich",
             "sohn einer hündin",
             "sohn einer hundin"
         ],
-        "fr" : [
+        "fr": [
             "va te faire foutre",
             "va te faire enculer"
         ],
-        "es" : [
+        "es": [
 
         ]
     }

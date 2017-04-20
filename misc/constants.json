@@ -1,6 +1,8 @@
 {
-      "STATUS": "Status: ",
-      "MESSAGEcnsl" : "Message: ",
-      "USERcnsl" : "USER: ",
-      "SPACE": " "
+    "STATUS": "Status: ",
+    "MESSAGEcnsl": "Message: ",
+    "USERcnsl": "USER: ",
+    "MEMBERcnsl": "MEMBER: ",
+    "GUILDcnsl": "GUILD: ",
+    "SPACE": " "
 }
