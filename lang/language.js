@@ -59,6 +59,6 @@ module.exports.LanguageType = class {
     }
 
     _switchlang(_lang) {
-
+        SetCurrentLang = _lang;
     }
 };

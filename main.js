@@ -17,7 +17,7 @@ const games = ["KRUPT·E DoubleX", ">|rnbf!++", "0K.ruptixx", "kwas w/ ♥",
 
 client.login(config.token);
 
-client.on("ready", () => {
+client.once("ready", () => {
     console.log(`\x1b[32m${constants.STATUS}\x1b[0m${packageData.name} is ` +
                 `\x1b[42malive\x1b[0m!\n${packageData.author} built me! [bld ` +
                 `${packageData.version} | passed]`);

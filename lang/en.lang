@@ -24,5 +24,7 @@
     "TypeWRT": "Type",
     "Type": "Type",
     "ForInfo": "for info",
-    "NACommand": "No avaliable command"
+    "NACommand": "No avaliable command",
+    "NotACommand" : "Command not avaliable",
+    "WEATHERdef" : ""
 }

@@ -111,6 +111,28 @@ module.exports.CommandDefiner = class {
                 _msg.guild.defaultChannel.sendMessage(strSay);
                 break;
             case commands.HELP:
+                if (enoughArgs(fields.length - 1, 1)) {
+                    switch (fields[1]) {
+                        case commands.SAY:
+
+                            break;
+                        case commands.WEATHER:
+
+                            break;
+                        case commands.ROBOT:
+
+                            break;
+                        case commands.RULES:
+
+                            break;
+                        case commands.AUTHOR:
+
+                            break;
+                        default:
+                        _msg.channel.sendMessage(`${language.Language
+                          .getPhrase("NotACommand")}`);
+                    }
+                }
                 // work in progress
                 break;
             default:
