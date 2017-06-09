@@ -1,14 +1,14 @@
 // just test | useless
-var events = require("events");
-exports.DateEvent = function(interval, caller_name) {
-    this.interval = interval;
-    this.caller_name = caller_name;
-    this.goForvard = function() {
-        var me = this;
+var events = require('events')
+exports.DateEvent = function (interval, callerName) {
+  this.interval = interval
+  this.callerName = callerName
+  this.goForvard = function () {
+    var me = this
 
-        setInterval(function() {
-            me.emit("everyHour", me.caller_name);
-        }, me.interval);
-    };
-};
-exports.DateEvent.prototype = new events.EventEmitter;
+    setInterval(function () {
+      me.emit('everyHour', me.callerName)
+    }, me.interval)
+  }
+}
+exports.DateEvent.prototype = new events.EventEmitter()

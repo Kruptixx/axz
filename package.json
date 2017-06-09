@@ -14,11 +14,15 @@
     "author": "Max \"Kruptixx\" <zexqmap@gmail.com>",
     "license": "MIT",
     "dependencies": {
+        "cheerio": "^0.22.0",
         "discord.js": "^11.0.0",
-        "request"   : "^2.81.0",
-        "cheerio"   : "^0.22.0"
+        "request": "^2.81.0"
     },
     "scripts": {
-        "test": "echo test"
+      "lint": "./node_modules/.bin/standard",
+      "lint-fix": "./node_modules/.bin/standard --fix"
+    },
+    "devDependencies": {
+        "standard": "^10.0.2"
     }
 }
