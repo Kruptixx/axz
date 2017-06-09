@@ -1,4 +1,3 @@
-
 module.exports.Service = class {
   static shortLink (_link) {
     let pattern = /https?:\/\//gi

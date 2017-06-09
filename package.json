@@ -19,10 +19,11 @@
         "request": "^2.81.0"
     },
     "scripts": {
-      "lint": "./node_modules/.bin/standard",
-      "lint-fix": "./node_modules/.bin/standard --fix"
+        "lint": "./node_modules/.bin/standard",
+        "lint-fix": "./node_modules/.bin/standard --fix"
     },
     "devDependencies": {
         "standard": "^10.0.2"
-    }
+    },
+    "repository": "https://github.com/Kruptixx/axz.git"
 }
