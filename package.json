@@ -1,29 +1,30 @@
 {
-    "name": "axz",
-    "version": "0.4b",
-    "description": "Discord App bot",
-    "main": "./main.js",
-    "keywords": [
-        "bot",
-        "parser",
-        "discord"
-    ],
-    "engines": {
-        "node": "^7.9.0"
-    },
-    "author": "Max \"Kruptixx\" <zexqmap@gmail.com>",
-    "license": "MIT",
-    "dependencies": {
-        "cheerio": "^0.22.0",
-        "discord.js": "^11.0.0",
-        "request": "^2.81.0"
-    },
-    "scripts": {
-        "lint": "./node_modules/.bin/standard",
-        "lint-fix": "./node_modules/.bin/standard --fix"
-    },
-    "devDependencies": {
-        "standard": "^10.0.2"
-    },
-    "repository": "https://github.com/Kruptixx/axz.git"
+  "name": "axz",
+  "version": "0.4b",
+  "description": "Discord App bot",
+  "main": "./main.js",
+  "keywords": [
+    "bot",
+    "parser",
+    "discord"
+  ],
+  "engines": {
+    "node": "^7.9.0"
+  },
+  "author": "Max \"Kruptixx\" <zexqmap@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "discord.js": "^11.0.0",
+    "request": "^2.81.0"
+  },
+  "scripts": {
+    "start": "node main",
+    "lint": "./node_modules/.bin/standard",
+    "lint-fix": "./node_modules/.bin/standard --fix"
+  },
+  "devDependencies": {
+    "standard": "^10.0.2"
+  },
+  "repository": "https://github.com/Kruptixx/axz.git"
 }
