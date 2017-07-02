@@ -1,22 +1,22 @@
-const constants = require('../misc/constants.json')
-const config = require('../config.json')
-const packageData = require('../package.json')
-const commands = require('./commands.json')
-const rules = require('../misc/rules.json')
-const service = require('../main/service.js')
-const smiles = require('../main/smiles.js')
-const language = require('../lang/language.js')
+const constants = require('../misc/constants.json');
+const config = require('../config.json');
+const packageData = require('../package.json');
+const commands = require('./commands.json');
+const rules = require('../misc/rules.json');
+const service = require('../main/service.js');
+const smiles = require('../main/smiles.js');
+const language = require('../lang/language.js');
 
 module.exports.CommandDefiner = class {
   static commandParse (_msg, _client, _msgSession) {
-    let fields = _msg.content.toLowerCase().split(constants.SPACE)
+    let fields = _msg.content.toLowerCase().split(constants.SPACE);
     // fields[0] - command
     // fields[1] - main parameter (not requared)
     // fields[2+] - additional parameters
     let pattern = new RegExp(
       '^PREFIX[a-zA-Zа-яА-ЯёЁ]'.replace(/PREFIX/, config.prefix),
       'gi'
-    )
+    );
     if (pattern.test(fields[0])) {
       switch (fields[0]
         .substr(config.prefix.length, fields[0].length - 1)
@@ -31,24 +31,24 @@ module.exports.CommandDefiner = class {
               `${config.fullname}***\`\`\`Status:\nconnected\n` +
               `${packageData.version}\ncurrent prefix - ${config.prefix}\n` +
               `messages this session - ${_msgSession}\`\`\``
-            )
+            );
           } else {
             _msg.channel.sendMessage(
               `${language.Language.getPhrase('AvaliableCreator')}`
-            )
+            );
           }
-          break
+          break;
         case commands.AUTHOR:
           if (enoughArgs(fields.length - 1)) {
-            _msg.channel.sendMessage(packageData.author)
+            _msg.channel.sendMessage(packageData.author);
           } else {
             _msg.channel.sendMessage(
               `${language.Language.getPhrase('ExampleCommand')} (` +
               `${language.Language.getPhrase('NoArgs')})` +
               `\`\`\`${config.prefix}${commands.AUTHOR}\`\`\``
-            )
+            );
           }
-          break
+          break;
         case commands.SETGAME:
           if (_msg.author.id === config.authorid) {
             _client.user.setGame(
@@ -56,13 +56,13 @@ module.exports.CommandDefiner = class {
                 config.prefix.length + commands.SETGAME.length + 1,
                 _msg.content.length - 1
               )
-            )
+            );
           } else {
             _msg.channel.sendMessage(
               `${language.Language.getPhrase('AvaliableCreator')}`
-            )
+            );
           }
-          break
+          break;
         case commands.PLAYERS:
           if (enoughArgs(fields.length - 1, 1)) {
             if (
@@ -73,85 +73,85 @@ module.exports.CommandDefiner = class {
                 _msg.channel.sendMessage(
                   'Last mentions:\n' +
                   lastMentions(_msg.mentions.roles.first(), _msg.channel)
-                )
+                );
               }
             }
           } else {
             _msg.channel.sendMessage(
               `${language.Language.getPhrase('ExampleCommand')}\`\`\`` +
               `${config.prefix}${commands.PLAYERS} @game\`\`\``
-            )
+            );
           }
-          break
+          break;
         case commands.RULES:
           if (enoughArgs(fields.length - 1)) {
             _msg.member.sendMessage(
               `${language.Language.getPhrase('RulesOf')} ***` +
               `${_msg.guild.name}***\`\`\`${rules.rules.en}\`\`\``
-            )
+            );
           } else {
             _msg.channel.sendMessage(
               `${language.Language.getPhrase('ExampleCommand')} (` +
               `${language.Language.getPhrase('NoArgs')})` +
               `\`\`\`${config.prefix}${commands.RULES}\`\`\``
-            )
+            );
           }
-          break
+          break;
         case commands.RULESTO:
-          break
+          break;
         case commands.WEATHER:
           if (fields[1] !== undefined) {
-            weather()
+            weather();
           } else {
             _msg.channel.sendMessage(
               `${language.Language.getPhrase(
                 'ExampleCommand'
               )}\`\`\`${config.prefix}` +
                 `${commands.WEATHER} *city* *[, country]*\`\`\``
-            )
+            );
           }
-          break
+          break;
         case commands.ROBOT:
-          let strBin = ''
+          let strBin = '';
           let strRob = _msg.content.substr(
             config.prefix.length + commands.ROBOT.length + 1,
             _msg.content.length - 1
-          )
+          );
           for (let i = 0; i < strRob.length; ++i) {
-            strBin += strRob[i].charCodeAt(0).toString(2)
+            strBin += strRob[i].charCodeAt(0).toString(2);
           }
           if (strBin.length < 2000) {
-            _msg.channel.sendMessage(strBin)
+            _msg.channel.sendMessage(strBin);
           }
-          break
+          break;
         case commands.SAY:
           let strSay = _msg.content.substr(
             config.prefix.length + commands.SAY.length + 1,
             _msg.content.length - 1
-          )
-          _msg.guild.defaultChannel.sendMessage(strSay)
-          break
+          );
+          _msg.guild.defaultChannel.sendMessage(strSay);
+          break;
         case commands.HELP:
           if (enoughArgs(fields.length - 1, 1)) {
             switch (fields[1]) {
               case commands.SAY:
-                break
+                break;
               case commands.WEATHER:
-                break
+                break;
               case commands.ROBOT:
-                break
+                break;
               case commands.RULES:
-                break
+                break;
               case commands.AUTHOR:
-                break
+                break;
               default:
                 _msg.channel.sendMessage(
                   `${language.Language.getPhrase('NotACommand')}`
-                )
+                );
             }
           }
           // TODO
-          break
+          break;
         default:
           _msg.channel.sendMessage(
             `${language.Language.getPhrase('NACommand')}! ` +
@@ -159,24 +159,24 @@ module.exports.CommandDefiner = class {
             `${config.prefix}${commands.HELP}*** ${language.Language.getPhrase(
               'ForInfo'
             )}`
-          )
+          );
       }
     }
 
     function enoughArgs (_curNumber, _maxNumber = 0) {
       if (_curNumber !== _maxNumber) {
-        return false
+        return false;
       }
-      return true
+      return true;
     }
 
     function lastMentions (_thing, _channel, _times = 10) {
-      let timesCounter = 0
-      let str = ''
+      let timesCounter = 0;
+      let str = '';
       for (let i = 1; i < _channel.messages.array().length; ++i) {
-        console.log(_channel.messages.array().length)
+        console.log(_channel.messages.array().length);
         if (timesCounter < _times) {
-          console.log(timesCounter)
+          console.log(timesCounter);
           if (typeof thing === typeof _msg.guild.roles.first()) {
             if (
               _channel.messages.array()[i].mentions.roles.get(_thing.id) ===
@@ -188,11 +188,11 @@ module.exports.CommandDefiner = class {
                 _channel.messages.array()[i].author +
                 ' | Date: ' +
                 _channel.messages.array()[i].createdAt.toDateString() +
-                '\n'
-              timesCounter++
-              continue
+                '\n';
+              timesCounter++;
+              continue;
             }
-            continue
+            continue;
           }
           if (typeof thing === typeof _msg.guild.users.first()) {
             if (
@@ -205,24 +205,24 @@ module.exports.CommandDefiner = class {
                 _channel.messages.array()[i].author +
                 ' | Date: ' +
                 _channel.messages.array()[i].createdAt.toDateString() +
-                '\n'
-              timesCounter++
+                '\n';
+              timesCounter++;
             }
           }
         } else {
-          return str
+          return str;
         }
       }
       if (str !== '') {
-        return str
+        return str;
       }
-      return 'No matches'
+      return 'No matches';
     }
 
     function weather () {
-      let request = require('request')
-      let cheerio = require('cheerio')
-      let site = 'wunderground.com'
+      let request = require('request');
+      let cheerio = require('cheerio');
+      let site = 'wunderground.com';
       request(
         `http://www.google.com/search?q=${_msg.content
           .substr(
@@ -231,14 +231,14 @@ module.exports.CommandDefiner = class {
           )
           .replace(/\s/, '+')}` + `&as_sitesearch=${site}`,
         function (error, response, body) {
-          console.log('statusCode:', response && response.statusCode)
+          console.log('statusCode:', response && response.statusCode);
           if (!error && body !== null) {
-            let $ = cheerio.load(body)
-            let links = $('.r a')
+            let $ = cheerio.load(body);
+            let links = $('.r a');
 
             if (links[0] !== null && links[0] !== undefined) {
-              var url = $(links[0]).attr('href')
-              url = url.replace('/url?q=', '').split('&')[0]
+              var url = $(links[0]).attr('href');
+              url = url.replace('/url?q=', '').split('&')[0];
               request(url, function (suberror, subresponse, subbody) {
                 if (
                   !error &&
@@ -251,51 +251,51 @@ module.exports.CommandDefiner = class {
                   console.log(
                     'SUBstatusCode:',
                     subresponse && subresponse.statusCode
-                  )
-                  let $page = cheerio.load(subbody)
+                  );
+                  let $page = cheerio.load(subbody);
                   let urlItems = service.Service
                     .shortLink(url)
                     .replace(`www.${site}/`, '')
-                    .split('/')
-                  let country = urlItems[0]
+                    .split('/');
+                  let country = urlItems[0];
                   let city =
-                    urlItems[urlItems.length - 1].replace('-', ' ') + ', '
-                  city = city[0].toUpperCase() + city.substr(1, city.length)
-                  let state = ''
+                    urlItems[urlItems.length - 1].replace('-', ' ') + ', ';
+                  city = city[0].toUpperCase() + city.substr(1, city.length);
+                  let state = '';
                   if (urlItems.length === 3) {
-                    state = urlItems[1] + ', '
+                    state = urlItems[1] + ', ';
                   }
                   let temperature = $page(
                     "[data-variable='temperature'] .wx-value"
-                  ).html()
+                  ).html();
                   let tempFeels = $page(
                     "[data-variable='feelslike'] .wx-value"
-                  ).html()
+                  ).html();
                   let tempUnit = $page("[data-variable='temperature'] .wx-unit")
                     .html()
                     .replace('&nbsp;', '°')
-                    .replace('&#xB0;', '°')
+                    .replace('&#xB0;', '°');
                   let temperature1 = tempUnit === '°C'
                     ? Math.floor(parseInt(temperature) * 1.8 + 32).toString() +
                       '°F'
                     : Math.floor(
                         (parseInt(temperature) - 32) / 1.8
-                      ).toString() + '°C'
+                      ).toString() + '°C';
                   let tempFeels1 = tempUnit === '°C'
                     ? Math.floor(parseInt(tempFeels) * 1.8 + 32).toString() +
                       '°F'
                     : Math.floor((parseInt(tempFeels) - 32) / 1.8).toString() +
-                      '°C'
+                      '°C';
                   let weather = $page(
                     "[data-variable='condition'] .wx-value"
-                  ).html()
+                  ).html();
                   let humidity = $page(
                     "[data-variable='humidity'] .wx-value"
-                  ).html()
-                  let percip = $page('.percip-link').html()
+                  ).html();
+                  let percip = $page('.percip-link').html();
                   let wind = $page(
                     "[data-variable='wind_speed'] .wx-value"
-                  ).html()
+                  ).html();
 
                   _msg.channel.sendMessage(
                     `${language.Language.getPhrase(
@@ -319,23 +319,23 @@ module.exports.CommandDefiner = class {
                       `${language.Language.getPhrase(
                         'Precipitation'
                       )}**: ${percip}%`
-                  )
+                  );
                 } else {
-                  console.log('suberror:', suberror)
+                  console.log('suberror:', suberror);
                   _msg.channel.sendMessage(
                     `${language.Language.getPhrase('NoResults')}`
-                  )
+                  );
                 }
-              })
+              });
             }
           } else {
-            console.log('error:', error)
+            console.log('error:', error);
             _msg.channel.sendMessage(
               `${language.Language.getPhrase('NoResults')}`
-            )
+            );
           }
         }
-      )
+      );
     }
   }
-}
+};
