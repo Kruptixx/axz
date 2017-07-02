@@ -21,16 +21,16 @@ module.exports.CommandDefiner = class {
       switch (fields[0]
         .substr(config.prefix.length, fields[0].length - 1)
         .toLowerCase()) {
-        case commands.TEST: // this.Commands.TEST
+        case commands.TEST:
           if (
             enoughArgs(fields.length - 1) &&
             _msg.author.id === config.authorid
           ) {
             _msg.channel.sendMessage(
               `Tested! Short info of ***` +
-                `${config.fullname}***\`\`\`Status:\nconnected\n` +
-                `${packageData.version}\ncurrent prefix - ${config.prefix}\n` +
-                `messages this session - ${_msgSession}\`\`\``
+              `${config.fullname}***\`\`\`Status:\nconnected\n` +
+              `${packageData.version}\ncurrent prefix - ${config.prefix}\n` +
+              `messages this session - ${_msgSession}\`\`\``
             )
           } else {
             _msg.channel.sendMessage(
@@ -44,8 +44,8 @@ module.exports.CommandDefiner = class {
           } else {
             _msg.channel.sendMessage(
               `${language.Language.getPhrase('ExampleCommand')} (` +
-                `${language.Language.getPhrase('NoArgs')})` +
-                `\`\`\`${config.prefix}${commands.AUTHOR}\`\`\``
+              `${language.Language.getPhrase('NoArgs')})` +
+              `\`\`\`${config.prefix}${commands.AUTHOR}\`\`\``
             )
           }
           break
@@ -63,7 +63,7 @@ module.exports.CommandDefiner = class {
             )
           }
           break
-        case commands.PLAYERS: // special mentions searcher
+        case commands.PLAYERS:
           if (enoughArgs(fields.length - 1, 1)) {
             if (
               _msg.mentions.roles.array().length === 1 &&
@@ -72,14 +72,14 @@ module.exports.CommandDefiner = class {
               if (!_msg.mentions.roles.first().hoist) {
                 _msg.channel.sendMessage(
                   'Last mentions:\n' +
-                    lastMentions(_msg.mentions.roles.first(), _msg.channel)
+                  lastMentions(_msg.mentions.roles.first(), _msg.channel)
                 )
               }
             }
           } else {
             _msg.channel.sendMessage(
               `${language.Language.getPhrase('ExampleCommand')}\`\`\`` +
-                `${config.prefix}${commands.PLAYERS} @game\`\`\``
+              `${config.prefix}${commands.PLAYERS} @game\`\`\``
             )
           }
           break
@@ -87,19 +87,17 @@ module.exports.CommandDefiner = class {
           if (enoughArgs(fields.length - 1)) {
             _msg.member.sendMessage(
               `${language.Language.getPhrase('RulesOf')} ***` +
-                `${_msg.guild.name}***\`\`\`${rules.rules.en}\`\`\``
+              `${_msg.guild.name}***\`\`\`${rules.rules.en}\`\`\``
             )
           } else {
             _msg.channel.sendMessage(
               `${language.Language.getPhrase('ExampleCommand')} (` +
-                `${language.Language.getPhrase('NoArgs')})` +
-                `\`\`\`${config.prefix}${commands.RULES}\`\`\``
+              `${language.Language.getPhrase('NoArgs')})` +
+              `\`\`\`${config.prefix}${commands.RULES}\`\`\``
             )
           }
           break
         case commands.RULESTO:
-          // dont work for @here
-          // removed for remaking
           break
         case commands.WEATHER:
           if (fields[1] !== undefined) {
@@ -152,15 +150,15 @@ module.exports.CommandDefiner = class {
                 )
             }
           }
-          // work in progress
+          // TODO
           break
         default:
           _msg.channel.sendMessage(
             `${language.Language.getPhrase('NACommand')}! ` +
-              `${language.Language.getPhrase('TypeWRT')} ***` +
-              `${config.prefix}${commands.HELP}*** ${language.Language.getPhrase(
-                'ForInfo'
-              )}`
+            `${language.Language.getPhrase('TypeWRT')} ***` +
+            `${config.prefix}${commands.HELP}*** ${language.Language.getPhrase(
+              'ForInfo'
+            )}`
           )
       }
     }
@@ -175,7 +173,6 @@ module.exports.CommandDefiner = class {
     function lastMentions (_thing, _channel, _times = 10) {
       let timesCounter = 0
       let str = ''
-      // if (channel.messages !== null)
       for (let i = 1; i < _channel.messages.array().length; ++i) {
         console.log(_channel.messages.array().length)
         if (timesCounter < _times) {
@@ -280,15 +277,15 @@ module.exports.CommandDefiner = class {
                     .replace('&#xB0;', '°')
                   let temperature1 = tempUnit === '°C'
                     ? Math.floor(parseInt(temperature) * 1.8 + 32).toString() +
-                        '°F'
+                      '°F'
                     : Math.floor(
                         (parseInt(temperature) - 32) / 1.8
                       ).toString() + '°C'
                   let tempFeels1 = tempUnit === '°C'
                     ? Math.floor(parseInt(tempFeels) * 1.8 + 32).toString() +
-                        '°F'
+                      '°F'
                     : Math.floor((parseInt(tempFeels) - 32) / 1.8).toString() +
-                        '°C'
+                      '°C'
                   let weather = $page(
                     "[data-variable='condition'] .wx-value"
                   ).html()
