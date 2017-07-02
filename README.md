@@ -8,3 +8,15 @@ Requires:
 - request module
 - cheerio module
 - config file (JSON type) with token to access as a bot
+
+config.json example
+```JS 
+{
+    "fullname" : "DiscordLoginNameHere",
+    "secret" : "ClientSecretHere",
+    "id" : "BotIDHere",
+    "token" : "BotTokenHere",
+    "prefix" : "BotPrefixForCommandsHere",
+    "authorid" : "AuthorIDHere"
+}
+```
