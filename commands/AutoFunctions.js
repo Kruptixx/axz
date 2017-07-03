@@ -4,31 +4,42 @@ const language = require('../lang/language.js');
 
 module.exports.AutoFunctions = class {
   static checkProfanity (msg, client) {
-    function setLang (lang) {
-      for (let i = 0; i < lang.length; ++i) {
-        let patternStr =
-          "(^|[0-9\\-!\\$%№\\^\\&\\*\\(\\)_\\+\\|~\\\"=\\'`\\{\\}\\[\\]:/;\\<\\>\\?,\\.@#]|\\s)SAMPLE([0-9\\-!\\$%№\\^\\&\\*\\(\\)_\\+\\|~\\\"=\\'`\\{\\}\\[\\]:/;\\<\\>\\?,\\.@#\\s]|$)";
-        let pattern = new RegExp(patternStr.replace(/SAMPLE/, lang[i]), 'g');
-        if (pattern.test(msg.content.toLowerCase())) {
-          msg.channel.sendMessage(
-            `${language.Language.getPhrase('Profanity')}!\n` +
-            `${language.Language.getPhrase('Perpetrator')}: ` +
-            `${msg.author} | ${language.Language.getPhrase('Time')}` +
-            `: ${msg.createdAt} | ${language.Language.getPhrase(
-              'ReasonWord'
-            )}: $lang[i]}`
-          );
+    function passThroughtLangs () {
+      function setLang (lang) {
+        for (let i = 0; i < lang.length; ++i) {
+          let patternStr =
+            "(^|[0-9\\-!\\$%№\\^\\&\\*\\(\\)_\\+\\|~\\\"=\\'`\\{\\}\\[\\]:/;\\<\\>\\?,\\.@#]|\\s)SAMPLE([0-9\\-!\\$%№\\^\\&\\*\\(\\)_\\+\\|~\\\"=\\'`\\{\\}\\[\\]:/;\\<\\>\\?,\\.@#\\s]|$)";
+          let pattern = new RegExp(patternStr.replace(/SAMPLE/, lang[i]), 'g');
+          if (pattern.test(msg.content.toLowerCase())) {
+            msg.channel.sendMessage(
+              `${language.Language.getPhrase('Profanity')}!\n` +
+              `${language.Language.getPhrase('Perpetrator')}: ` +
+              `${msg.author} | ${language.Language.getPhrase('Time')}` +
+              `: ${msg.createdAt} | ${language.Language.getPhrase(
+                'ReasonWord'
+              )}: ${lang[i]}`
+            );
+            return true;
+          }
+        }
+        return false;
+      }
+
+      for (let i = 0; i < arguments.length; ++i) {
+        if (setLang(arguments[i])) {
           return;
         }
       }
     }
 
     if (msg.author.id !== client.user.id && !msg.author.bot) {
-      setLang(profanity.profanity.en);
-      setLang(profanity.profanity.ru);
-      setLang(profanity.profanity.de);
-      setLang(profanity.profanity.fr);
-      setLang(profanity.profanity.es);
+      passThroughtLangs(
+        profanity.profanity.en,
+        profanity.profanity.ru,
+        profanity.profanity.de,
+        profanity.profanity.fr,
+        profanity.profanity.es
+      );
     }
   }
 

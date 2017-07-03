@@ -20,10 +20,12 @@
   },
   "scripts": {
     "start": "nodemon main",
+    "test": "./node_modules/.bin/jest",
     "lint": "./node_modules/.bin/semistandard",
     "lint-fix": "./node_modules/.bin/semistandard --fix"
   },
   "devDependencies": {
+    "jest": "^20.0.4",
     "nodemon": "^1.11.0",
     "semistandard": "^11.0.0"
   },
