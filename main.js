@@ -82,10 +82,9 @@ client.on('guildMemberAdd', member => {
     `"${member.guild.name}"`
   );
   if (member.user.bot === false) {
-    member.guild.defaultChannel.sendMessage(
-      `${language.Language.getPhrase('WelcomeNewUser')}!\n${member.user} ` +
-      `${language.Language.getPhrase('JoinedThisServer')}`
-    );
+    const welcome = language.Language.getPhrase('WelcomeNewUser');
+    const joined = language.Language.getPhrase('JoinedThisServer');
+    member.guild.defaultChannel.sendMessage(`${welcome}!\n${member.user} ${joined}`);
     member.sendMessage(
       `${language.Language.getPhrase('RulesOf')} ***` +
       `${member.guild.name}***\`\`\`${rules.rules.en}\`\`\``
