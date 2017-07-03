@@ -16,14 +16,15 @@
   "dependencies": {
     "cheerio": "^0.22.0",
     "discord.js": "^11.0.0",
-    "request": "^2.81.0",
-    "semistandard": "^11.0.0"
+    "request": "^2.81.0"
   },
   "scripts": {
     "start": "node main",
     "lint": "./node_modules/.bin/semistandard",
     "lint-fix": "./node_modules/.bin/semistandard --fix"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "semistandard": "^11.0.0"
+  },
   "repository": "https://github.com/Kruptixx/axz.git"
 }
