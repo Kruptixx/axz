@@ -1,6 +1,6 @@
 module.exports.Service = class {
-  static shortLink (_link) {
-    let pattern = /https?:\/\//gi
-    return _link.replace(pattern, '')
+  static shortLink (link) {
+    let pattern = /https?:\/\//gi;
+    return link.replace(pattern, '');
   }
-}
+};

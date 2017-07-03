@@ -19,12 +19,13 @@
     "request": "^2.81.0"
   },
   "scripts": {
-    "start": "node main",
-    "lint": "./node_modules/.bin/standard",
-    "lint-fix": "./node_modules/.bin/standard --fix"
+    "start": "nodemon main",
+    "lint": "./node_modules/.bin/semistandard",
+    "lint-fix": "./node_modules/.bin/semistandard --fix"
   },
   "devDependencies": {
-    "standard": "^10.0.2"
+    "nodemon": "^1.11.0",
+    "semistandard": "^11.0.0"
   },
   "repository": "https://github.com/Kruptixx/axz.git"
 }
