@@ -6,8 +6,8 @@ const standartLang = JSON.parse(fs.readFileSync(langFilePath, 'utf8'));
 let currentLang = standartLang;
 
 module.exports.Language = class {
-  static setLanguage (_lang) {
-    switch (_lang) {
+  static setLanguage (lang) {
+    switch (lang) {
       case 'ru':
         currentLang = JSON.parse(fs.readFileSync('./lang/ru.lang', 'utf8'));
         break;
@@ -20,11 +20,11 @@ module.exports.Language = class {
     }
   }
 
-  static getPhrase (_phrase) {
-    if (currentLang.hasOwnProperty(_phrase) && currentLang !== standartLang) {
-      return currentLang[_phrase];
-    } else if (standartLang.hasOwnProperty(_phrase)) {
-      return standartLang[_phrase];
+  static getPhrase (phrase) {
+    if (currentLang.hasOwnProperty(phrase) && currentLang !== standartLang) {
+      return currentLang[phrase];
+    } else if (standartLang.hasOwnProperty(phrase)) {
+      return standartLang[phrase];
     } else {
       return 'ERROR: PHRASE N/A';
     }
@@ -32,20 +32,20 @@ module.exports.Language = class {
 };
 
 module.exports.LanguageType = class {
-  constructor (_currentLang, _generalLang) {
-    this.currentLang = _currentLang;
-    this.generalLang = _generalLang;
+  constructor (currentLang, generalLang) {
+    this.currentLang = currentLang;
+    this.generalLang = generalLang;
   }
 
   get GetLang () {
     return this.lang;
   }
 
-  set SetCurrentLang (_value) {
-    this.currentLang = _value;
+  set SetCurrentLang (lang) {
+    this.currentLang = lang;
   }
 
-  set SetGeneralLang (_value) {
-    this.generalLang = _value;
+  set SetGeneralLang (lang) {
+    this.generalLang = lang;
   }
 };

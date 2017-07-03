@@ -1,8 +1,8 @@
 module.exports.Smiles = class {
-  static countrySmile (_country) {
+  static countrySmile (country) {
     let smile = ':flag_';
 
-    switch (_country.toLowerCase()) {
+    switch (country.toLowerCase()) {
       case 'us':
       case 'usa':
       case 'united states':
@@ -38,13 +38,13 @@ module.exports.Smiles = class {
     return smile + ':';
   }
 
-  static shortCountrySmile (_country) {
-    return ':flag_' + _country.toLowerCase() + ':';
+  static shortCountrySmile (country) {
+    return ':flag_' + country.toLowerCase() + ':';
   }
 
-  static weatherSmile (_weather) {
+  static weatherSmile (weather) {
     let smile = ':';
-    switch (_weather.toLowerCase()) {
+    switch (weather.toLowerCase()) {
       case 'sunny':
       case 'clear':
       case 'sun':
