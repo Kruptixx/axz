@@ -8,8 +8,8 @@ const smiles = require('../main/smiles.js');
 const language = require('../lang/language.js');
 
 module.exports.CommandDefiner = class {
-  static commandParse (_msg, _client, _msgSession) {
-    let fields = _msg.content.toLowerCase().split(constants.SPACE);
+  static commandParse (msg, client) {
+    let fields = msg.content.toLowerCase().split(constants.SPACE);
     // fields[0] - command
     // fields[1] - main parameter (not requared)
     // fields[2+] - additional parameters
@@ -24,75 +24,74 @@ module.exports.CommandDefiner = class {
         case commands.TEST:
           if (
             enoughArgs(fields.length - 1) &&
-            _msg.author.id === config.authorid
+            msg.author.id === config.authorid
           ) {
-            _msg.channel.sendMessage(
+            msg.channel.sendMessage(
               `Tested! Short info of ***` +
               `${config.fullname}***\`\`\`Status:\nconnected\n` +
-              `${packageData.version}\ncurrent prefix - ${config.prefix}\n` +
-              `messages this session - ${_msgSession}\`\`\``
+              `${packageData.version}\ncurrent prefix - ${config.prefix}\n`
             );
           } else {
-            _msg.channel.sendMessage(
-              `${language.Language.getPhrase('AvaliableCreator')}`
+            msg.channel.sendMessage(
+              `${language.getPhrase('AvaliableCreator')}`
             );
           }
           break;
         case commands.AUTHOR:
           if (enoughArgs(fields.length - 1)) {
-            _msg.channel.sendMessage(packageData.author);
+            msg.channel.sendMessage(packageData.author);
           } else {
-            _msg.channel.sendMessage(
-              `${language.Language.getPhrase('ExampleCommand')} (` +
-              `${language.Language.getPhrase('NoArgs')})` +
+            msg.channel.sendMessage(
+              `${language.getPhrase('ExampleCommand')} (` +
+              `${language.getPhrase('NoArgs')})` +
               `\`\`\`${config.prefix}${commands.AUTHOR}\`\`\``
             );
           }
           break;
         case commands.SETGAME:
-          if (_msg.author.id === config.authorid) {
-            _client.user.setGame(
-              _msg.content.substr(
+          if (msg.author.id === config.authorid) {
+            client.user.setGame(
+              msg.content.substr(
                 config.prefix.length + commands.SETGAME.length + 1,
-                _msg.content.length - 1
+                msg.content.length - 1
               )
             );
           } else {
-            _msg.channel.sendMessage(
-              `${language.Language.getPhrase('AvaliableCreator')}`
+            msg.channel.sendMessage(
+              `${language.getPhrase('AvaliableCreator')}`
             );
           }
           break;
         case commands.PLAYERS:
           if (enoughArgs(fields.length - 1, 1)) {
             if (
-              _msg.mentions.roles.array().length === 1 &&
-              !_msg.mentions.everyone
+              msg.mentions.roles.array().length === 1 &&
+              !msg.mentions.everyone
             ) {
-              if (!_msg.mentions.roles.first().hoist) {
-                _msg.channel.sendMessage(
+              if (!msg.mentions.roles.first().hoist) {
+                msg.channel.sendMessage(
                   'Last mentions:\n' +
-                  lastMentions(_msg.mentions.roles.first(), _msg.channel)
+                  lastMentions(msg.mentions.roles.first(), msg.channel)
                 );
               }
             }
           } else {
-            _msg.channel.sendMessage(
-              `${language.Language.getPhrase('ExampleCommand')}\`\`\`` +
+            msg.channel.sendMessage(
+              `${language.getPhrase('ExampleCommand')}\`\`\`` +
               `${config.prefix}${commands.PLAYERS} @game\`\`\``
             );
           }
           break;
         case commands.RULES:
           if (enoughArgs(fields.length - 1)) {
-            _msg.member.sendMessage(
-              `${language.Language.getPhrase('RulesOf')} ***` +
-              `${_msg.guild.name}***\`\`\`${rules.rules.en}\`\`\``
+            msg.member.sendMessage(
+              `${language.getPhrase('RulesOf')} ***` +
+              `${msg.guild.name}***\`\`\`${rules.rules.en}\`\`\``
             );
           } else {
-            _msg.channel.sendMessage(
-              `${language.Language.getPhrase('ExampleCommand')} (` +
-              `${language.Language.getPhrase('NoArgs')})` +
+            msg.channel.sendMessage(
+              `${language.getPhrase('ExampleCommand')} (` +
+              `${language.getPhrase('NoArgs')})` +
               `\`\`\`${config.prefix}${commands.RULES}\`\`\``
             );
           }
@@ -103,8 +102,8 @@ module.exports.CommandDefiner = class {
           if (fields[1] !== undefined) {
             weather();
           } else {
-            _msg.channel.sendMessage(
-              `${language.Language.getPhrase(
+            msg.channel.sendMessage(
+              `${language.getPhrase(
                 'ExampleCommand'
               )}\`\`\`${config.prefix}` +
                 `${commands.WEATHER} *city* *[, country]*\`\`\``
@@ -113,23 +112,23 @@ module.exports.CommandDefiner = class {
           break;
         case commands.ROBOT:
           let strBin = '';
-          let strRob = _msg.content.substr(
+          let strRob = msg.content.substr(
             config.prefix.length + commands.ROBOT.length + 1,
-            _msg.content.length - 1
+            msg.content.length - 1
           );
           for (let i = 0; i < strRob.length; ++i) {
             strBin += strRob[i].charCodeAt(0).toString(2);
           }
           if (strBin.length < 2000) {
-            _msg.channel.sendMessage(strBin);
+            msg.channel.sendMessage(strBin);
           }
           break;
         case commands.SAY:
-          let strSay = _msg.content.substr(
+          let strSay = msg.content.substr(
             config.prefix.length + commands.SAY.length + 1,
-            _msg.content.length - 1
+            msg.content.length - 1
           );
-          _msg.guild.defaultChannel.sendMessage(strSay);
+          msg.guild.defaultChannel.sendMessage(strSay);
           break;
         case commands.HELP:
           if (enoughArgs(fields.length - 1, 1)) {
@@ -145,66 +144,66 @@ module.exports.CommandDefiner = class {
               case commands.AUTHOR:
                 break;
               default:
-                _msg.channel.sendMessage(
-                  `${language.Language.getPhrase('NotACommand')}`
+                msg.channel.sendMessage(
+                  `${language.getPhrase('NotACommand')}`
                 );
             }
           }
           // TODO
           break;
         default:
-          _msg.channel.sendMessage(
-            `${language.Language.getPhrase('NACommand')}! ` +
-            `${language.Language.getPhrase('TypeWRT')} ***` +
-            `${config.prefix}${commands.HELP}*** ${language.Language.getPhrase(
+          msg.channel.sendMessage(
+            `${language.getPhrase('NACommand')}! ` +
+            `${language.getPhrase('TypeWRT')} ***` +
+            `${config.prefix}${commands.HELP}*** ${language.getPhrase(
               'ForInfo'
             )}`
           );
       }
     }
 
-    function enoughArgs (_curNumber, _maxNumber = 0) {
-      if (_curNumber !== _maxNumber) {
+    function enoughArgs (curNumber, maxNumber = 0) {
+      if (curNumber !== maxNumber) {
         return false;
       }
       return true;
     }
 
-    function lastMentions (_thing, _channel, _times = 10) {
+    function lastMentions (thing, channel, times = 10) {
       let timesCounter = 0;
       let str = '';
-      for (let i = 1; i < _channel.messages.array().length; ++i) {
-        console.log(_channel.messages.array().length);
-        if (timesCounter < _times) {
+      for (let i = 1; i < channel.messages.array().length; ++i) {
+        console.log(channel.messages.array().length);
+        if (timesCounter < times) {
           console.log(timesCounter);
-          if (typeof thing === typeof _msg.guild.roles.first()) {
+          if (typeof thing === typeof msg.guild.roles.first()) {
             if (
-              _channel.messages.array()[i].mentions.roles.get(_thing.id) ===
-                _thing &&
-              _channel.messages.array()[i].author.id !== _client.user.id
+              channel.messages.array()[i].mentions.roles.get(thing.id) ===
+                thing &&
+              channel.messages.array()[i].author.id !== client.user.id
             ) {
               str +=
                 'Author: ' +
-                _channel.messages.array()[i].author +
+                channel.messages.array()[i].author +
                 ' | Date: ' +
-                _channel.messages.array()[i].createdAt.toDateString() +
+                channel.messages.array()[i].createdAt.toDateString() +
                 '\n';
               timesCounter++;
               continue;
             }
             continue;
           }
-          if (typeof thing === typeof _msg.guild.users.first()) {
+          if (typeof thing === typeof msg.guild.users.first()) {
             if (
-              _channel.messages.array()[i].mentions.users.get(_thing.id) ===
-                _thing &&
-              _channel.messages.array()[i].author.id !== _client.user.id
+              channel.messages.array()[i].mentions.users.get(thing.id) ===
+                thing &&
+              channel.messages.array()[i].author.id !== client.user.id
             ) {
               str +=
                 'Author: ' +
-                _channel.messages.array()[i].author +
+                channel.messages.array()[i].author +
                 ' | Date: ' +
-                _channel.messages.array()[i].createdAt.toDateString() +
+                channel.messages.array()[i].createdAt.toDateString() +
                 '\n';
               timesCounter++;
             }
@@ -224,10 +223,10 @@ module.exports.CommandDefiner = class {
       let cheerio = require('cheerio');
       let site = 'wunderground.com';
       request(
-        `http://www.google.com/search?q=${_msg.content
+        `http://www.google.com/search?q=${msg.content
           .substr(
             config.prefix.length + commands.WEATHER.length + 1,
-            _msg.content.length
+            msg.content.length
           )
           .replace(/\s/, '+')}` + `&as_sitesearch=${site}`,
         function (error, response, body) {
@@ -239,7 +238,7 @@ module.exports.CommandDefiner = class {
             if (links[0] !== null && links[0] !== undefined) {
               var url = $(links[0]).attr('href');
               url = url.replace('/url?q=', '').split('&')[0];
-              request(url, function (suberror, subresponse, subbody) {
+              request(url, (suberror, subresponse, subbody) => {
                 if (
                   !error &&
                   body !== null &&
@@ -253,7 +252,7 @@ module.exports.CommandDefiner = class {
                     subresponse && subresponse.statusCode
                   );
                   let $page = cheerio.load(subbody);
-                  let urlItems = service.Service
+                  let urlItems = service
                     .shortLink(url)
                     .replace(`www.${site}/`, '')
                     .split('/');
@@ -297,41 +296,41 @@ module.exports.CommandDefiner = class {
                     "[data-variable='wind_speed'] .wx-value"
                   ).html();
 
-                  _msg.channel.sendMessage(
-                    `${language.Language.getPhrase(
+                  msg.channel.sendMessage(
+                    `${language.getPhrase(
                       'WeatherFor'
                     )} **${city}${state.toUpperCase()}${country.toUpperCase()}**` +
                       ` ${smiles.Smiles.shortCountrySmile(
                         country
-                      )}\n**${language.Language.getPhrase('Weather')}**: ` +
+                      )}\n**${language.getPhrase('Weather')}**: ` +
                       `${weather} ${smiles.Smiles.weatherSmile(
                         weather
-                      )}\n**${language.Language.getPhrase('Temperature')}**: ` +
-                      `${temperature}${tempUnit} | ${temperature1}\n**${language.Language.getPhrase(
+                      )}\n**${language.getPhrase('Temperature')}**: ` +
+                      `${temperature}${tempUnit} | ${temperature1}\n**${language.getPhrase(
                         'FeelsLike'
                       )}**: ` +
-                      `${tempFeels}${tempUnit} | ${tempFeels1}\n**${language.Language.getPhrase(
+                      `${tempFeels}${tempUnit} | ${tempFeels1}\n**${language.getPhrase(
                         'WindSpeed'
                       )}**: ` +
-                      `${wind} km/h\n**${language.Language.getPhrase(
+                      `${wind} km/h\n**${language.getPhrase(
                         'Humidity'
                       )}**: ${humidity}%\n**` +
-                      `${language.Language.getPhrase(
+                      `${language.getPhrase(
                         'Precipitation'
                       )}**: ${percip}%`
                   );
                 } else {
                   console.log('suberror:', suberror);
-                  _msg.channel.sendMessage(
-                    `${language.Language.getPhrase('NoResults')}`
+                  msg.channel.sendMessage(
+                    `${language.getPhrase('NoResults')}`
                   );
                 }
               });
             }
           } else {
             console.log('error:', error);
-            _msg.channel.sendMessage(
-              `${language.Language.getPhrase('NoResults')}`
+            msg.channel.sendMessage(
+              `${language.getPhrase('NoResults')}`
             );
           }
         }

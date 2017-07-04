@@ -21,13 +21,22 @@
   "scripts": {
     "start": "nodemon main",
     "test": "./node_modules/.bin/jest",
-    "lint": "./node_modules/.bin/semistandard",
-    "lint-fix": "./node_modules/.bin/semistandard --fix"
+    "lint": "./node_modules/.bin/semistandard --env jest",
+    "lint-fix": "./node_modules/.bin/semistandard --fix --env jest"
   },
   "devDependencies": {
     "jest": "^20.0.4",
     "nodemon": "^1.11.0",
     "semistandard": "^11.0.0"
   },
-  "repository": "https://github.com/Kruptixx/axz.git"
+  "repository": "https://github.com/Kruptixx/axz.git",
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "commands/*.js",
+      "lang/*.js",
+      "main/*.js",
+      "main.js"
+    ]
+  }
 }
