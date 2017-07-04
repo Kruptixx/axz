@@ -48,7 +48,7 @@ client.on('message', message => {
     `"(${message.author.id})${message.author.username}"`
   );
   if (message.content.startsWith(config.prefix)) {
-    commandDefiner.CommandDefiner.commandParse(
+    commandDefiner.commandParse(
       message,
       client
     );
