@@ -8,8 +8,6 @@ const commandDefiner = require('./commands/CommandDefiner.js');
 const language = require('./lang/language.js');
 let client = new Discord.Client();
 
-let messagesThisSession = 0;
-
 const games = [
   'KRUPT·E DoubleX',
   '>|rnbf!++',
@@ -49,15 +47,15 @@ client.on('message', message => {
     ` /// Author: ` +
     `"(${message.author.id})${message.author.username}"`
   );
-  messagesThisSession++;
   if (message.content.startsWith(config.prefix)) {
-    commandDefiner.CommandDefiner.commandParse(
+    commandDefiner.commandParse(
       message,
-      client,
-      messagesThisSession
+      client
     );
   }
-  autoFunctions.AutoFunctions.checkProfanity(message, client);
+  if (!message.author.bot) {
+    autoFunctions.checkProfanity(message);
+  }
 });
 
 client.on('presenceUpdate', (oldMember, newMember) => {
@@ -72,7 +70,7 @@ client.on('presenceUpdate', (oldMember, newMember) => {
     `)${newMember.user.username}" changed status from "${oldStatus}" ` +
     `to "${newStatus}"`
   );
-  autoFunctions.AutoFunctions.checkStream(oldMember, newMember);
+  autoFunctions.checkStream(oldMember, newMember);
 });
 
 client.on('guildMemberAdd', member => {
@@ -82,11 +80,11 @@ client.on('guildMemberAdd', member => {
     `"${member.guild.name}"`
   );
   if (member.user.bot === false) {
-    const welcome = language.Language.getPhrase('WelcomeNewUser');
-    const joined = language.Language.getPhrase('JoinedThisServer');
+    const welcome = language.getPhrase('WelcomeNewUser');
+    const joined = language.getPhrase('JoinedThisServer');
     member.guild.defaultChannel.sendMessage(`${welcome}!\n${member.user} ${joined}`);
     member.sendMessage(
-      `${language.Language.getPhrase('RulesOf')} ***` +
+      `${language.getPhrase('RulesOf')} ***` +
       `${member.guild.name}***\`\`\`${rules.rules.en}\`\`\``
     );
   }
