@@ -3,9 +3,8 @@ const config = require('../config.json');
 const packageData = require('../package.json');
 const commands = require('./commands.json');
 const rules = require('../misc/rules.json');
-const service = require('../main/service.js');
-const smiles = require('../main/smiles.js');
 const language = require('../lang/language.js');
+const getWeather = require('./weather').getWeather;
 
 const enoughArgs = (amount, expected = 0) => amount === expected;
 
@@ -61,7 +60,12 @@ module.exports.commandParse = (msg, client) => {
       case commands.RULESTO:
         break;
       case commands.WEATHER:
-          msg.channel.sendMessage('not implemented yet');
+        const send = m => msg.reply(JSON.stringify(m));
+        const sendError = (e) => msg.reply('Weather forecast not found');
+        const sities = fields.slice(1);
+        Promise.all(sities.map(getWeather))
+        .then(send)
+        .catch(sendError);
         break;
       case commands.SAY:
         let strSay = msg.content.substr(
@@ -99,4 +103,4 @@ module.exports.commandParse = (msg, client) => {
         );
     }
   }
-}
+};
