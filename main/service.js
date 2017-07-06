@@ -1,4 +1,4 @@
-const interpretInfAsValue = 5;
+const interpretMaxAsValue = 50;
 
 module.exports = {
   shortLink: (link) => {
@@ -7,8 +7,8 @@ module.exports = {
   },
 
   enoughArgs: (amount, min = 0, max = min) => {
-    if (max === 'inf') max = interpretInfAsValue;
-    return amount <= max && amount >= min;
+    if (max === 'max') max = interpretMaxAsValue;
+    return max >= min ? (amount <= max && amount >= min) : false;
   }
 
   // isAuthor:

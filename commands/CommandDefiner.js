@@ -28,7 +28,7 @@ module.exports.commandParse = (msg, client) => {
         break;
       case commands.SETGAME:
         if (msg.author.id === config.authorid) {
-          if (service.enoughArgs(fields.length - 1, 1, 'inf')) {
+          if (service.enoughArgs(fields.length - 1, 1, 'max')) {
             client.user.setGame(
               msg.content.substr(
                 config.prefix.length + commands.SETGAME.length + 1,
