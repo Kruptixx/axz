@@ -14,14 +14,16 @@
   "author": "Max \"Kruptixx\" <zexqmap@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.16.2",
     "discord.js": "^11.0.0"
   },
   "scripts": {
     "start": "node main",
     "startmon": "nodemon main",
-    "test": "./node_modules/.bin/jest",
-    "lint": "./node_modules/.bin/semistandard --env jest",
-    "lint-fix": "./node_modules/.bin/semistandard --fix --env jest"
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "lint": "semistandard --env jest",
+    "lint-fix": "semistandard --fix --env jest"
   },
   "devDependencies": {
     "jest": "^20.0.4",

@@ -5,6 +5,8 @@ const commands = require('./commands.json');
 const rules = require('../misc/rules.json');
 const service = require('../main/service.js');
 const language = require('../lang/language.js');
+const getWeather = require('./weather').getWeather;
+const formatWeatherOutput = require('./weather').formatWeatherOutput;
 
 module.exports.commandParse = (msg, client) => {
   let fields = msg.content.toLowerCase().split(constants.SPACE);
@@ -58,6 +60,13 @@ module.exports.commandParse = (msg, client) => {
       case commands.RULESTO:
         break;
       case commands.WEATHER:
+        const send = m => msg.reply(m);
+        const sendError = (e) => msg.reply('Weather forecast not found');
+        const sities = fields.slice(1);
+        Promise.all(sities.map(getWeather))
+        .then(p => p.map(formatWeatherOutput))
+        .then(send)
+        .catch(sendError);
         break;
       case commands.SAY:
         let strSay = msg.content.substr(
