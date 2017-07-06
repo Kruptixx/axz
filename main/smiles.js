@@ -3,33 +3,22 @@ module.exports.Smiles = class {
     let smile = ':flag_';
 
     switch (country.toLowerCase()) {
-      case 'us':
-      case 'usa':
-      case 'united states':
+      case 'us': case 'usa': case 'united states':
         smile += 'us';
         break;
-      case 'ru':
-      case 'russia':
-      case 'russian federation':
+      case 'ru': case 'russia': case 'russian federation':
         smile += 'ru';
         break;
-      case 'by':
-      case 'belarus':
-      case 'republic of belarus':
+      case 'by': case 'belarus': case 'republic of belarus':
         smile += 'by';
         break;
-      case 'de':
-      case 'germany':
-      case 'federal republic of germany':
+      case 'de': case 'germany': case 'federal republic of germany':
         smile += 'de';
         break;
-      case 'ua':
-      case 'ukraine':
+      case 'ua': case 'ukraine':
         smile += 'ua';
         break;
-      case 'pl':
-      case 'poland':
-      case 'republic of poland':
+      case 'pl': case 'poland': case 'republic of poland':
         smile += 'pl';
         break;
       default:
@@ -45,13 +34,10 @@ module.exports.Smiles = class {
   static weatherSmile (weather) {
     let smile = ':';
     switch (weather.toLowerCase()) {
-      case 'sunny':
-      case 'clear':
-      case 'sun':
+      case 'sunny': case 'clear': case 'sun':
         smile += 'sunny';
         break;
-      case 'rain':
-      case 'rainy':
+      case 'rain': case 'rainy':
         smile += 'cloud_rain';
         break;
       case 'thunderstorm':
@@ -69,9 +55,7 @@ module.exports.Smiles = class {
       case 'scattered clouds':
         smile += 'white_sun_small_cloud';
         break;
-      case 'clouds':
-      case 'mostly cloudy':
-      case 'overcast':
+      case 'clouds': case 'mostly cloudy': case 'overcast':
         smile += 'cloud';
         break;
       case 'snow':

@@ -5,12 +5,12 @@ Bot app for Discord
 Requires:
 - Node.js (ES6)
 - Discord.js module (Discord API wrapper)
-- request module
-- cheerio module
+- request module // for previous versions
+- cheerio module // for previous versions
 - config file (JSON type) with token to access as a bot
 
 config.json example
-```JS 
+```JS
 {
     "fullname" : "DiscordLoginNameHere",
     "secret" : "ClientSecretHere",

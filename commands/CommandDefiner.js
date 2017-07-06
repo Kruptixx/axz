@@ -7,8 +7,6 @@ const service = require('../main/service.js');
 const smiles = require('../main/smiles.js');
 const language = require('../lang/language.js');
 
-const enoughArgs = (amount, expected = 0) => amount === expected;
-
 module.exports.commandParse = (msg, client) => {
   let fields = msg.content.toLowerCase().split(constants.SPACE);
   let pattern = new RegExp(
@@ -20,58 +18,56 @@ module.exports.commandParse = (msg, client) => {
       .substr(config.prefix.length, fields[0].length - 1)
       .toLowerCase()) {
       case commands.AUTHOR:
-        if (enoughArgs(fields.length - 1)) {
+        if (service.enoughArgs(fields.length - 1)) {
           msg.channel.sendMessage(packageData.author);
         } else {
           msg.channel.sendMessage(
             `${language.getPhrase('ExampleCommand')} (` +
             `${language.getPhrase('NoArgs')})` +
-            `\`\`\`${config.prefix}${commands.AUTHOR}\`\`\``
-          );
+            `\`\`\`${config.prefix}${commands.AUTHOR}\`\`\``);
         }
         break;
       case commands.SETGAME:
         if (msg.author.id === config.authorid) {
-          client.user.setGame(
-            msg.content.substr(
-              config.prefix.length + commands.SETGAME.length + 1,
-              msg.content.length - 1
-            )
-          );
+          if (service.enoughArgsInRange(fields.length - 1, 1, 'inf')) {
+            client.user.setGame(
+              msg.content.substr(
+                config.prefix.length + commands.SETGAME.length + 1,
+                msg.content.length - 1));
+          } else {
+            msg.channel.sendMessage(
+              `${language.getPhrase('ExampleCommand')}` +
+              `\`\`\`${config.prefix}${commands.SETGAME} *new game*\`\`\``);
+          }
         } else {
           msg.channel.sendMessage(
-            `${language.getPhrase('AvaliableCreator')}`
-          );
+            `${language.getPhrase('AvaliableCreator')}`);
         }
         break;
       case commands.RULES:
-        if (enoughArgs(fields.length - 1)) {
+        if (service.enoughArgs(fields.length - 1)) {
           msg.member.sendMessage(
             `${language.getPhrase('RulesOf')} ***` +
-            `${msg.guild.name}***\`\`\`${rules.rules.en}\`\`\``
-          );
+            `${msg.guild.name}***\`\`\`${rules.rules.en}\`\`\``);
         } else {
           msg.channel.sendMessage(
             `${language.getPhrase('ExampleCommand')} (` +
             `${language.getPhrase('NoArgs')})` +
-            `\`\`\`${config.prefix}${commands.RULES}\`\`\``
-          );
+            `\`\`\`${config.prefix}${commands.RULES}\`\`\``);
         }
         break;
       case commands.RULESTO:
         break;
       case commands.WEATHER:
-          msg.channel.sendMessage('not implemented yet');
         break;
       case commands.SAY:
         let strSay = msg.content.substr(
           config.prefix.length + commands.SAY.length + 1,
-          msg.content.length - 1
-        );
+          msg.content.length - 1);
         msg.guild.defaultChannel.sendMessage(strSay);
         break;
       case commands.HELP:
-        if (enoughArgs(fields.length - 1, 1)) {
+        if (service.enoughArgs(fields.length - 1, 1)) {
           switch (fields[1]) {
             case commands.SAY:
               break;
@@ -83,8 +79,7 @@ module.exports.commandParse = (msg, client) => {
               break;
             default:
               msg.channel.sendMessage(
-                `${language.getPhrase('NotACommand')}`
-              );
+                `${language.getPhrase('NotACommand')}`);
           }
         }
         // TODO
@@ -93,10 +88,8 @@ module.exports.commandParse = (msg, client) => {
         msg.channel.sendMessage(
           `${language.getPhrase('NACommand')}! ` +
           `${language.getPhrase('TypeWRT')} ***` +
-          `${config.prefix}${commands.HELP}*** ${language.getPhrase(
-            'ForInfo'
-          )}`
-        );
+          `${config.prefix}${commands.HELP}***` +
+          ` ${language.getPhrase('ForInfo')}`);
     }
   }
-}
+};
