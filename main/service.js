@@ -1,4 +1,4 @@
-const interpretInfAsValue = 50;
+const interpretInfAsValue = 5;
 
 module.exports = {
   shortLink: (link) => {
@@ -6,12 +6,7 @@ module.exports = {
     return link.replace(pattern, '');
   },
 
-  enoughArgs: (amount, expected = 0) => {
-    return amount === expected;
-  },
-
-  // without inrange
-  enoughArgsInRange: (amount, min = 0, max = min) => {
+  enoughArgs: (amount, min = 0, max = min) => {
     if (max === 'inf') max = interpretInfAsValue;
     return amount <= max && amount >= min;
   }

@@ -14,9 +14,8 @@ module.exports.checkProfanity = (msg) => {
             `${language.getPhrase('Profanity')}!\n` +
             `${language.getPhrase('Perpetrator')}: ` +
             `${msg.author} | ${language.getPhrase('Time')}` +
-            `: ${msg.createdAt} | ${language.getPhrase('ReasonWord')}:` +
-            ` ${lang[i]}`
-          );
+            `: ${msg.createdAt} | ${language.getPhrase('ReasonWord')}:`+
+            ` ${lang[i]}`);
           return true;
         }
       }
@@ -35,17 +34,14 @@ module.exports.checkProfanity = (msg) => {
     profanity.profanity.ru,
     profanity.profanity.de,
     profanity.profanity.fr,
-    profanity.profanity.es
-  );
+    profanity.profanity.es);
 };
 
 module.exports.checkStream = (oldMember, newMember) => {
-  if (
-    newMember.presence.game !== null &&
+  if (newMember.presence.game !== null &&
     !newMember.user.bot &&
     oldMember.presence.game !== newMember.presence.game &&
-    newMember.presence.game.streaming
-  ) {
+    newMember.presence.game.streaming) {
     try {
       newMember.guild.defaultChannel.sendMessage(
         `@here\n***` +
@@ -56,8 +52,7 @@ module.exports.checkStream = (oldMember, newMember) => {
         `${language.getPhrase('WatchOn')} ` +
         `${newMember.presence.game.url !== null
           ? service.shortLink(newMember.presence.game.url)
-          : 'N/A'}`
-      );
+          : 'N/A'}`);
     } catch (e) {
       console.log('Error: ' + e);
     }

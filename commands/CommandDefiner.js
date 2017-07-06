@@ -11,9 +11,7 @@ const formatWeatherOutput = require('./weather').formatWeatherOutput;
 module.exports.commandParse = (msg, client) => {
   let fields = msg.content.toLowerCase().split(constants.SPACE);
   let pattern = new RegExp(
-    '^PREFIX[a-zA-Zа-яА-ЯёЁ]'.replace(/PREFIX/, config.prefix),
-    'gi'
-  );
+    '^PREFIX[a-zA-Zа-яА-ЯёЁ]'.replace(/PREFIX/, config.prefix),'gi');
   if (pattern.test(fields[0])) {
     switch (fields[0]
       .substr(config.prefix.length, fields[0].length - 1)
@@ -30,7 +28,7 @@ module.exports.commandParse = (msg, client) => {
         break;
       case commands.SETGAME:
         if (msg.author.id === config.authorid) {
-          if (service.enoughArgsInRange(fields.length - 1, 1, 'inf')) {
+          if (service.enoughArgs(fields.length - 1, 1, 'inf')) {
             client.user.setGame(
               msg.content.substr(
                 config.prefix.length + commands.SETGAME.length + 1,

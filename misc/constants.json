@@ -4,5 +4,6 @@
     "USERcnsl": "USER: ",
     "MEMBERcnsl": "MEMBER: ",
     "GUILDcnsl": "GUILD: ",
-    "SPACE": " "
+    "SPACE": " ",
+    "ERRORmsg" : "ERROR: PHRASE N/A"
 }
