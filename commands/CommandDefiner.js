@@ -5,6 +5,7 @@ const commands = require('./commands.json');
 const rules = require('../misc/rules.json');
 const language = require('../lang/language.js');
 const getWeather = require('./weather').getWeather;
+const formatWeatherOutput = require('./weather').formatWeatherOutput;
 
 const enoughArgs = (amount, expected = 0) => amount === expected;
 
@@ -60,10 +61,11 @@ module.exports.commandParse = (msg, client) => {
       case commands.RULESTO:
         break;
       case commands.WEATHER:
-        const send = m => msg.reply(JSON.stringify(m));
+        const send = m => msg.reply(m);
         const sendError = (e) => msg.reply('Weather forecast not found');
         const sities = fields.slice(1);
         Promise.all(sities.map(getWeather))
+        .then(p => p.map(formatWeatherOutput))
         .then(send)
         .catch(sendError);
         break;
