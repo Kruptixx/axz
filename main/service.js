@@ -10,11 +10,11 @@ module.exports = {
     return amount === expected;
   },
 
-  //without inrange
+  // without inrange
   enoughArgsInRange: (amount, min = 0, max = min) => {
-    if(max === 'inf') max = interpretInfAsValue;
+    if (max === 'inf') max = interpretInfAsValue;
     return amount <= max && amount >= min;
   }
 
-  //isAuthor:
+  // isAuthor:
 };

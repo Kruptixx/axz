@@ -4,7 +4,6 @@ const packageData = require('../package.json');
 const commands = require('./commands.json');
 const rules = require('../misc/rules.json');
 const service = require('../main/service.js');
-const smiles = require('../main/smiles.js');
 const language = require('../lang/language.js');
 
 module.exports.commandParse = (msg, client) => {

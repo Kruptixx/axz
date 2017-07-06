@@ -14,7 +14,7 @@ module.exports.checkProfanity = (msg) => {
             `${language.getPhrase('Profanity')}!\n` +
             `${language.getPhrase('Perpetrator')}: ` +
             `${msg.author} | ${language.getPhrase('Time')}` +
-            `: ${msg.createdAt} | ${language.getPhrase('ReasonWord')}:` + 
+            `: ${msg.createdAt} | ${language.getPhrase('ReasonWord')}:` +
             ` ${lang[i]}`
           );
           return true;
