@@ -2,11 +2,12 @@ const constants = require('../misc/constants.json');
 const config = require('../config.json');
 const packageData = require('../package.json');
 const commands = require('./commands.json');
-const rules = require('../misc/rules.json');
 const service = require('../main/service.js');
 const language = require('../lang/language.js');
 const getWeather = require('./weather').getWeather;
 const formatWeatherOutput = require('./weather').formatWeatherOutput;
+//trash
+const rules = require('../misc/rules.json');
 
 module.exports.commandParse = (msg, client) => {
   let fields = msg.content.toLowerCase().split(constants.SPACE);
@@ -16,14 +17,18 @@ module.exports.commandParse = (msg, client) => {
     switch (fields[0]
       .substr(config.prefix.length, fields[0].length - 1)
       .toLowerCase()) {
+      case commands.TEST:
+        if (msg.author.id === config.authorid) {
+          msg.channel.send(`TEST done`);
+        } else {
+          msg.channel.send(`${language.getPhrase('AvaliableCreator')}`);
+        }
+        break;
       case commands.AUTHOR:
         if (service.enoughArgs(fields.length - 1)) {
-          msg.channel.sendMessage(packageData.author);
+          msg.channel.send(packageData.author);
         } else {
-          msg.channel.sendMessage(
-            `${language.getPhrase('ExampleCommand')} (` +
-            `${language.getPhrase('NoArgs')})` +
-            `\`\`\`${config.prefix}${commands.AUTHOR}\`\`\``);
+          msg.channel.send(language.getHelpExample(commands.AUTHOR));
         }
         break;
       case commands.SETGAME:
@@ -34,25 +39,20 @@ module.exports.commandParse = (msg, client) => {
                 config.prefix.length + commands.SETGAME.length + 1,
                 msg.content.length - 1));
           } else {
-            msg.channel.sendMessage(
-              `${language.getPhrase('ExampleCommand')}` +
-              `\`\`\`${config.prefix}${commands.SETGAME} *new game*\`\`\``);
+            msg.channel.send(
+              language.getHelpExample(commands.SETGAME, 'en', '*new game*'));
           }
         } else {
-          msg.channel.sendMessage(
-            `${language.getPhrase('AvaliableCreator')}`);
+          msg.channel.send(`${language.getPhrase('AvaliableCreator')}`);
         }
         break;
       case commands.RULES:
         if (service.enoughArgs(fields.length - 1)) {
-          msg.member.sendMessage(
+          msg.member.send(
             `${language.getPhrase('RulesOf')} ***` +
             `${msg.guild.name}***\`\`\`${rules.rules.en}\`\`\``);
         } else {
-          msg.channel.sendMessage(
-            `${language.getPhrase('ExampleCommand')} (` +
-            `${language.getPhrase('NoArgs')})` +
-            `\`\`\`${config.prefix}${commands.RULES}\`\`\``);
+          msg.channel.send(language.getHelpExample(commands.RULES));
         }
         break;
       case commands.RULESTO:
@@ -67,10 +67,14 @@ module.exports.commandParse = (msg, client) => {
         .catch(sendError);
         break;
       case commands.SAY:
-        let strSay = msg.content.substr(
-          config.prefix.length + commands.SAY.length + 1,
-          msg.content.length - 1);
-        msg.guild.defaultChannel.sendMessage(strSay);
+        if (msg.author.id === config.authorid) {
+          let strSay = msg.content.substr(
+            config.prefix.length + commands.SAY.length + 1,
+            msg.content.length - 1);
+          msg.guild.defaultChannel.send(strSay);
+        } else {
+          msg.channel.send(`${language.getPhrase('AvaliableCreator')}`);
+        }
         break;
       case commands.HELP:
         if (service.enoughArgs(fields.length - 1, 1)) {
@@ -81,21 +85,26 @@ module.exports.commandParse = (msg, client) => {
               break;
             case commands.RULES:
               break;
+            case commands.RULESTO:
+              break;
+            case commands.MAXZ:
+              break;
             case commands.AUTHOR:
               break;
+            case undefined:
+              //general info about all commands
+              break;
             default:
-              msg.channel.sendMessage(
-                `${language.getPhrase('NotACommand')}`);
+              msg.channel.send(language.getPhrase('NotACommand'));
           }
         }
-        // TODO
         break;
       default:
-        msg.channel.sendMessage(
+        msg.channel.send(
           `${language.getPhrase('NACommand')}! ` +
           `${language.getPhrase('TypeWRT')} ***` +
-          `${config.prefix}${commands.HELP}***` +
-          ` ${language.getPhrase('ForInfo')}`);
+          `${config.prefix}${commands.HELP}*** ` +
+          `${language.getPhrase('ForInfo')}`);
     }
   }
 };

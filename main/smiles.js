@@ -1,32 +1,4 @@
 module.exports.Smiles = class {
-  static countrySmile (country) {
-    let smile = ':flag_';
-
-    switch (country.toLowerCase()) {
-      case 'us': case 'usa': case 'united states':
-        smile += 'us';
-        break;
-      case 'ru': case 'russia': case 'russian federation':
-        smile += 'ru';
-        break;
-      case 'by': case 'belarus': case 'republic of belarus':
-        smile += 'by';
-        break;
-      case 'de': case 'germany': case 'federal republic of germany':
-        smile += 'de';
-        break;
-      case 'ua': case 'ukraine':
-        smile += 'ua';
-        break;
-      case 'pl': case 'poland': case 'republic of poland':
-        smile += 'pl';
-        break;
-      default:
-        smile += 'rainbow_flag';
-    }
-    return smile + ':';
-  }
-
   static shortCountrySmile (country) {
     return ':flag_' + country.toLowerCase() + ':';
   }

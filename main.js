@@ -38,12 +38,11 @@ client.on('message', message => {
     `\x1b[36m${constants.MESSAGEcnsl}\x1b[0m"${message.content}"` +
     ` /// Author: ` +
     `"(${message.author.id})${message.author.username}"`);
-  if (message.content.startsWith(config.prefix)) {
+
+  if (message.content.startsWith(config.prefix))
     commandDefiner.commandParse(message, client);
-  }
-  if (!message.author.bot) {
+  if (!message.author.bot)
     autoFunctions.checkProfanity(message);
-  }
 });
 
 client.on('presenceUpdate', (oldMember, newMember) => {
@@ -69,7 +68,7 @@ client.on('guildMemberAdd', member => {
     const welcome = language.getPhrase('WelcomeNewUser');
     const joined = language.getPhrase('JoinedThisServer');
     member.guild.defaultChannel.sendMessage(`${welcome}!\n${member.user} ${joined}`);
-    member.sendMessage(
+    member.send(
       `${language.getPhrase('RulesOf')} ***` +
       `${member.guild.name}***\`\`\`${rules.rules.en}\`\`\``);
   }

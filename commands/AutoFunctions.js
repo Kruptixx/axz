@@ -10,23 +10,20 @@ module.exports.checkProfanity = (msg) => {
           "(^|[0-9\\-!\\$%№\\^\\&\\*\\(\\)_\\+\\|~\\\"=\\'`\\{\\}\\[\\]:/;\\<\\>\\?,\\.@#]|\\s)SAMPLE([0-9\\-!\\$%№\\^\\&\\*\\(\\)_\\+\\|~\\\"=\\'`\\{\\}\\[\\]:/;\\<\\>\\?,\\.@#\\s]|$)";
         let pattern = new RegExp(patternStr.replace(/SAMPLE/, lang[i]), 'g');
         if (pattern.test(msg.content.toLowerCase())) {
-          msg.channel.sendMessage(
+          msg.channel.send(
             `${language.getPhrase('Profanity')}!\n` +
             `${language.getPhrase('Perpetrator')}: ` +
             `${msg.author} | ${language.getPhrase('Time')}` +
-            `: ${msg.createdAt} | ${language.getPhrase('ReasonWord')}:`+
-            ` ${lang[i]}`);
+            `: ${msg.createdAt} | ${language.getPhrase('ReasonWord')}: `+
+            lang[i]);
           return true;
         }
       }
       return false;
     }
 
-    for (let i = 0; i < arguments.length; ++i) {
-      if (setLang(arguments[i])) {
-        return;
-      }
-    }
+    for (let i = 0; i < arguments.length; ++i)
+      if (setLang(arguments[i])) return;
   }
 
   passThroughtLangs(
@@ -43,14 +40,14 @@ module.exports.checkStream = (oldMember, newMember) => {
     oldMember.presence.game !== newMember.presence.game &&
     newMember.presence.game.streaming) {
     try {
-      newMember.guild.defaultChannel.sendMessage(
+      newMember.guild.defaultChannel.send(
         `@here\n***` +
-        `${language.getPhrase('Stream').toUpperCase()}` +
+        language.getPhrase('Stream').toUpperCase() +
         `***\n\n${newMember.user} ` +
         `${language.getPhrase('StartedStreaming')} *` +
         `${newMember.presence.game.name}*\n` +
-        `${language.getPhrase('WatchOn')} ` +
-        `${newMember.presence.game.url !== null
+        language.getPhrase('WatchOn') +
+        ` ${newMember.presence.game.url !== null
           ? service.shortLink(newMember.presence.game.url)
           : 'N/A'}`);
     } catch (e) {

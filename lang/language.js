@@ -1,10 +1,14 @@
-const fs = require('fs');
-const path = require('path');
-const langFilePath = path.join(__dirname, 'en.lang');
-const standartLang = JSON.parse(fs.readFileSync(langFilePath, 'utf8'));
+const prefix = require('../config.json').prefix;
+const stdLang = require('../config.json').standartLanguage;
 const constants = require('../misc/constants.json');
 
-module.exports.getPhrase = (phrase, lang) => {
+const fs = require('fs');
+const path = require('path');
+const langFilePath = path.join(__dirname, `${stdLang}.lang`);
+const standartLang = JSON.parse(fs.readFileSync(langFilePath, 'utf8'));
+
+
+const getPhrase = (phrase, lang = stdLang) => {
   let currentLang;
 
   try {
@@ -15,4 +19,18 @@ module.exports.getPhrase = (phrase, lang) => {
   }
 
   return currentLang[phrase] || standartLang[phrase] || constants.ERRORmsg;
+};
+
+const getHelpExample = (commandName, lang = stdLang,
+                                 args = null) => {
+
+  return getPhrase('ExampleCommand', lang) +
+    ((args === null || args === undefined) ?
+        ` (${getPhrase('NoArgs', lang)})` : '') +
+    `\`\`\`${prefix}${commandName} ${args || ''}\`\`\``
+};
+
+module.exports = {
+  getPhrase,
+  getHelpExample
 };

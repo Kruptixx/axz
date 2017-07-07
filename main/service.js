@@ -1,4 +1,4 @@
-const interpretMaxAsValue = 50;
+const constants = require('../misc/constants.json');
 
 module.exports = {
   shortLink: (link) => {
@@ -7,9 +7,9 @@ module.exports = {
   },
 
   enoughArgs: (amount, min = 0, max = min) => {
-    if (max === 'max') max = interpretMaxAsValue;
+    if (max === 'max') max = constants.interpretMaxAsValue;
     return max >= min ? (amount <= max && amount >= min) : false;
-  }
+  },
 
   // isAuthor:
 };

@@ -1,6 +1,8 @@
 node_modules
-coverage
+music
 logs
+coverage
+
 config.json
 trash
 logs.log

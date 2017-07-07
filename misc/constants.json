@@ -5,5 +5,7 @@
     "MEMBERcnsl": "MEMBER: ",
     "GUILDcnsl": "GUILD: ",
     "SPACE": " ",
-    "ERRORmsg" : "ERROR: PHRASE N/A"
+    "ERRORmsg" : "ERROR: PHRASE N/A",
+    "interpretMaxAsValue" : 50,
+    "interpretInfAsValue" : 2000
 }

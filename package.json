@@ -1,6 +1,6 @@
 {
   "name": "axz",
-  "version": "0.4.3b",
+  "version": "0.4.4b",
   "description": "Discord App bot",
   "main": "./main.js",
   "keywords": [

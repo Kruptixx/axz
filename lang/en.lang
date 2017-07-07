@@ -27,5 +27,6 @@
   "NACommand": "No avaliable command",
   "NotACommand" : "Command not avaliable",
   "WEATHERdef" : "",
-  "TooManyArgs" : "Too many args"
+  "TooManyArgs" : "Too many args",
+  "DEPRECATED" : "DEPRECATED"
 }

@@ -18,6 +18,7 @@ config.json example
   "token" : "BotTokenHere",
   "prefix" : "BotPrefixForCommandsHere",
   "authorid" : "AuthorIDHere",
+  "standartLanguage" : "en_orSomeOther",
   "weather": {
     "url": "http://api.openweathermap.org/data/2.5/weather",
     "appid": "YourAppid"

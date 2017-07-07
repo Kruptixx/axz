@@ -9,5 +9,11 @@
     "SAY": "say",
     "SETGAME": "setgame",
     "ROBOT": "robot",
-    "WEATHER": "weather"
+    "WEATHER": "weather",
+    "MAXZ" : "maxz",
+    "PLAYER" : "player",
+    "MUSIC" : "music",
+    "PLAY" : "play",
+    "STOP" : "stop",
+    "LEAVE" : "leave"
 }
