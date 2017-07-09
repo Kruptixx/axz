@@ -5,6 +5,36 @@ const constants = require('./misc/constants.json');
 const autoFunctions = require('./commands/AutoFunctions.js');
 const commandDefiner = require('./commands/CommandDefiner.js');
 const language = require('./lang/language.js');
+
+const winston = require('winston');
+
+const fs = require('fs');
+const env = process.env.NODE_ENV || 'production';
+const logDir = 'logs';
+
+if (!fs.existsSync(logDir)) {
+  fs.mkdirSync(logDir);
+}
+
+const tsFormat = () => (new Date()).toLocaleTimeString();
+
+const logger = new (winston.Logger)({
+  transports: [
+    new (winston.transports.Console)({
+      timestamp: tsFormat,
+      colorize: true,
+      level: env === 'development' ? 'debug' : 'info'
+    }),
+    new (require('winston-daily-rotate-file'))({
+      filename: `${logDir}/.log`,
+      timestamp: tsFormat,
+      datePattern: 'yyyy-MM-dd',
+      prepend: true,
+      level: env === 'development' ? 'debug' : 'info'
+    })
+  ]
+});
+
 let client = new Discord.Client();
 // trash
 const rules = require('./misc/rules.json');
@@ -14,27 +44,27 @@ const games = ['KRUPT·E DoubleX', '>|rnbf!++', '0K.ruptixx', 'kwas w/ ♥',
 client.login(config.token);
 
 client.once('ready', () => {
-  console.log(
-    `\x1b[32m${constants.STATUS}\x1b[0m${packageData.name} is ` +
-    `\x1b[42malive\x1b[0m!\n${packageData.author} built me! [bld ` +
+  logger.info(`${packageData.name} is ready!`);
+  logger.info(
+    `${packageData.author} built me! [bld ` +
     `${packageData.version} | passed]`);
   client.user.setGame(games[Math.floor(Math.random() * 6)]);
 });
 
 client.on('reconnecting', () => {
-  console.log(
+  logger.info(
     `\x1b[32m${constants.STATUS}\x1b[0m"${packageData.name}" ` +
     `\x1b[42mreconnected\x1b[0m`);
 });
 
 client.on('disconnecting', () => {
-  console.log(
+  logger.info(
     `\x1b[32m${constants.STATUS}\x1b[0m"${packageData.name}" ` +
     `\x1b[41mdisconnected\x1b[0m`);
 });
 
 client.on('message', message => {
-  console.log(
+  logger.info(
     `\x1b[36m${constants.MESSAGEcnsl}\x1b[0m"${message.content}"` +
     ` /// Author: ` +
     `"(${message.author.id})${message.author.username}"`);
@@ -50,7 +80,7 @@ client.on('presenceUpdate', (oldMember, newMember) => {
   let newStatus = newMember.presence.game !== null
     ? newMember.presence.game.name
     : 'null';
-  console.log(
+  logger.info(
     `\x1b[35m${constants.MEMBERcnsl}\x1b[0m"(${newMember.user.id}` +
     `)${newMember.user.username}" changed status from "${oldStatus}" ` +
     `to "${newStatus}"`);
@@ -58,14 +88,14 @@ client.on('presenceUpdate', (oldMember, newMember) => {
 });
 
 client.on('guildMemberAdd', member => {
-  console.log(
+  logger.info(
     `\x1b[35m${constants.USERcnsl}\x1b[0m**NEW** ` +
     `"(${member.user.id})${member.user.username}" has joined ` +
     `"${member.guild.name}"`);
   if (member.user.bot === false) {
     const welcome = language.getPhrase('WelcomeNewUser');
     const joined = language.getPhrase('JoinedThisServer');
-    member.guild.defaultChannel.sendMessage(`${welcome}!\n${member.user} ${joined}`);
+    member.guild.defaultChannel.send(`${welcome}!\n${member.user} ${joined}`);
     member.send(
       `${language.getPhrase('RulesOf')} ***` +
       `${member.guild.name}***\`\`\`${rules.rules.en}\`\`\``);
@@ -78,6 +108,10 @@ setInterval(() => {
   }
 }, 60000);
 
-client.on('error', e => console.error(e));
-client.on('warn', e => console.warn(e));
-client.on('debug', e => console.info(e));
+client.on('error', e => logger.error(e));
+client.on('warn', w => logger.warn(w));
+if (env === 'development') {
+  client.on('debug', d => logger.debug(d));
+}
+
+module.exports.logger = logger;

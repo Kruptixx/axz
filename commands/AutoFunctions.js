@@ -1,3 +1,4 @@
+const logger = require('../main.js').logger;
 const profanity = require('../misc/profanity.json');
 const service = require('../main/service.js');
 const language = require('../lang/language.js');
@@ -50,7 +51,7 @@ module.exports.checkStream = (oldMember, newMember) => {
           ? service.shortLink(newMember.presence.game.url)
           : 'N/A'}`);
     } catch (e) {
-      console.log('Error: ' + e);
+      logger.error(e);
     }
   }
 };
