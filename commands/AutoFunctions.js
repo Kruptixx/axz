@@ -14,7 +14,7 @@ module.exports.checkProfanity = (msg) => {
             `${language.getPhrase('Profanity')}!\n` +
             `${language.getPhrase('Perpetrator')}: ` +
             `${msg.author} | ${language.getPhrase('Time')}` +
-            `: ${msg.createdAt} | ${language.getPhrase('ReasonWord')}: `+
+            `: ${msg.createdAt} | ${language.getPhrase('ReasonWord')}: ` +
             lang[i]);
           return true;
         }
@@ -22,8 +22,7 @@ module.exports.checkProfanity = (msg) => {
       return false;
     }
 
-    for (let i = 0; i < arguments.length; ++i)
-      if (setLang(arguments[i])) return;
+    for (let i = 0; i < arguments.length; ++i) { if (setLang(arguments[i])) return; }
   }
 
   passThroughtLangs(

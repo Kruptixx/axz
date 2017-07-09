@@ -6,13 +6,13 @@ const service = require('../main/service.js');
 const language = require('../lang/language.js');
 const getWeather = require('./weather').getWeather;
 const formatWeatherOutput = require('./weather').formatWeatherOutput;
-//trash
+// trash
 const rules = require('../misc/rules.json');
 
 module.exports.commandParse = (msg, client) => {
   let fields = msg.content.toLowerCase().split(constants.SPACE);
   let pattern = new RegExp(
-    '^PREFIX[a-zA-Zа-яА-ЯёЁ]'.replace(/PREFIX/, config.prefix),'gi');
+    '^PREFIX[a-zA-Zа-яА-ЯёЁ]'.replace(/PREFIX/, config.prefix), 'gi');
   if (pattern.test(fields[0])) {
     switch (fields[0]
       .substr(config.prefix.length, fields[0].length - 1)
@@ -23,9 +23,7 @@ module.exports.commandParse = (msg, client) => {
         } else msg.channel.send(language.getPhrase('AvaliableCreator'));
         break;
       case commands.AUTHOR:
-        if (service.enoughArgs(fields.length - 1))
-          msg.channel.send(packageData.author);
-        else msg.channel.send(language.getHelpExample(commands.AUTHOR));
+        if (service.enoughArgs(fields.length - 1)) { msg.channel.send(packageData.author); } else msg.channel.send(language.getHelpExample(commands.AUTHOR));
         break;
       case commands.SETGAME:
         if (msg.author.id === config.authorid) {
@@ -34,8 +32,10 @@ module.exports.commandParse = (msg, client) => {
               msg.content.substr(
                 config.prefix.length + commands.SETGAME.length + 1,
                 msg.content.length - 1));
-          } else msg.channel.send(
+          } else {
+            msg.channel.send(
               language.getHelpExample(commands.SETGAME, 'en', '*new game*'));
+          }
         } else msg.channel.send(language.getPhrase('AvaliableCreator'));
         break;
       case commands.RULES:
@@ -79,7 +79,7 @@ module.exports.commandParse = (msg, client) => {
           case commands.AUTHOR:
             break;
           case undefined:
-            //general info about all commands
+            // general info about all commands
             break;
           default:
             msg.channel.send(language.getPhrase('NotACommand'));

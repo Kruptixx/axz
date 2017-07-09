@@ -6,10 +6,10 @@ const autoFunctions = require('./commands/AutoFunctions.js');
 const commandDefiner = require('./commands/CommandDefiner.js');
 const language = require('./lang/language.js');
 let client = new Discord.Client();
-//trash
+// trash
 const rules = require('./misc/rules.json');
 const games = ['KRUPT·E DoubleX', '>|rnbf!++', '0K.ruptixx', 'kwas w/ ♥',
-               '༼ つ ◕_◕ ༽つ'];
+  '༼ つ ◕_◕ ༽つ'];
 
 client.login(config.token);
 
@@ -39,10 +39,8 @@ client.on('message', message => {
     ` /// Author: ` +
     `"(${message.author.id})${message.author.username}"`);
 
-  if (message.content.startsWith(config.prefix))
-    commandDefiner.commandParse(message, client);
-  if (!message.author.bot)
-    autoFunctions.checkProfanity(message);
+  if (message.content.startsWith(config.prefix)) { commandDefiner.commandParse(message, client); }
+  if (!message.author.bot) { autoFunctions.checkProfanity(message); }
 });
 
 client.on('presenceUpdate', (oldMember, newMember) => {
