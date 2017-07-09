@@ -26,5 +26,7 @@
   "ForInfo": "for info",
   "NACommand": "No avaliable command",
   "NotACommand" : "Command not avaliable",
-  "WEATHERdef" : ""
+  "WEATHERdef" : "",
+  "TooManyArgs" : "Too many args",
+  "DEPRECATED" : "DEPRECATED"
 }

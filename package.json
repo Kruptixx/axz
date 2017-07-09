@@ -1,6 +1,6 @@
 {
   "name": "axz",
-  "version": "0.4b",
+  "version": "0.4.4b",
   "description": "Discord App bot",
   "main": "./main.js",
   "keywords": [
@@ -18,7 +18,8 @@
     "discord.js": "^11.0.0"
   },
   "scripts": {
-    "start": "nodemon main",
+    "start": "node main",
+    "startmon": "nodemon main",
     "test": "jest",
     "coverage": "jest --coverage",
     "lint": "semistandard --env jest",

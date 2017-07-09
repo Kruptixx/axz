@@ -5,12 +5,15 @@
     "RULESTO": "rulesto",
     "HELP": "help",
     "STREAMS": "streams",
-    "GAMERS": "gamers",
-    "PLAYERS": "players",
     "INFO": "info",
     "SAY": "say",
     "SETGAME": "setgame",
     "ROBOT": "robot",
     "WEATHER": "weather",
-    "WEATHERF": "weatherf"
+    "MAXZ" : "maxz",
+    "PLAYER" : "player",
+    "MUSIC" : "music",
+    "PLAY" : "play",
+    "STOP" : "stop",
+    "LEAVE" : "leave"
 }

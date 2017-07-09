@@ -1,0 +1,25 @@
+{
+    "us" : [
+        "usa",
+         "united states"
+    ],
+    "ru" : [
+        "russia",
+        "russian federation"
+    ],
+    "by" : [
+        "belarus",
+        "republic of belarus"
+    ],
+    "de" : [
+        "germany",
+        "federal republic of germany"
+    ],
+    "ua" : [
+        "ukraine"
+    ],
+    "pl" : [
+        "poland",
+        "republic of poland"
+    ]
+}

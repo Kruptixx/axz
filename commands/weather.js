@@ -20,5 +20,4 @@ module.exports.formatWeatherOutput = w =>
 **Wind speed:** ${w.wind.speed} meter/sec
 **Humidity:** ${w.main.humidity}%
 **Cloudiness:** ${w.clouds.all}%
-**Atmospheric pressure:** ${w.main.pressure} hPa
-`;
+**Atmospheric pressure:** ${w.main.pressure} hPa`;
