@@ -9,7 +9,7 @@ module.exports = {
   enoughArgs: (amount, min = 0, max = min) => {
     if (max === 'max') max = constants.interpretMaxAsValue;
     return max >= min ? (amount <= max && amount >= min) : false;
-  },
+  }
 
   // isAuthor:
 };

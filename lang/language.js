@@ -7,14 +7,13 @@ const path = require('path');
 const langFilePath = path.join(__dirname, `${stdLang}.lang`);
 const standartLang = JSON.parse(fs.readFileSync(langFilePath, 'utf8'));
 
-
 const getPhrase = (phrase, lang = stdLang) => {
   let currentLang;
 
   try {
     currentLang = JSON.parse(fs.readFileSync(`./lang/${lang}.lang`, 'utf8'));
   } catch (err) {
-    //log about error
+    // log about error
     currentLang = standartLang;
   }
 
@@ -23,11 +22,10 @@ const getPhrase = (phrase, lang = stdLang) => {
 
 const getHelpExample = (commandName, lang = stdLang,
                                  args = null) => {
-
   return getPhrase('ExampleCommand', lang) +
-    ((args === null || args === undefined) ?
-        ` (${getPhrase('NoArgs', lang)})` : '') +
-    `\`\`\`${prefix}${commandName} ${args || ''}\`\`\``
+    ((args === null || args === undefined)
+        ? ` (${getPhrase('NoArgs', lang)})` : '') +
+    `\`\`\`${prefix}${commandName} ${args || ''}\`\`\``;
 };
 
 module.exports = {

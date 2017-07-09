@@ -6,13 +6,13 @@ const service = require('../main/service.js');
 const language = require('../lang/language.js');
 const getWeather = require('./weather').getWeather;
 const formatWeatherOutput = require('./weather').formatWeatherOutput;
-//trash
+// trash
 const rules = require('../misc/rules.json');
 
 module.exports.commandParse = (msg, client) => {
   let fields = msg.content.toLowerCase().split(constants.SPACE);
   let pattern = new RegExp(
-    '^PREFIX[a-zA-Zа-яА-ЯёЁ]'.replace(/PREFIX/, config.prefix),'gi');
+    '^PREFIX[a-zA-Zа-яА-ЯёЁ]'.replace(/PREFIX/, config.prefix), 'gi');
   if (pattern.test(fields[0])) {
     switch (fields[0]
       .substr(config.prefix.length, fields[0].length - 1)
@@ -92,7 +92,7 @@ module.exports.commandParse = (msg, client) => {
             case commands.AUTHOR:
               break;
             case undefined:
-              //general info about all commands
+              // general info about all commands
               break;
             default:
               msg.channel.send(language.getPhrase('NotACommand'));
