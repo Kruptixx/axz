@@ -20,6 +20,12 @@
   "FeelsLike": "Feels like",
   "WindSpeed": "Wind speed",
   "Humidity": "Humidity",
+  "Cloudiness": "Cloudiness",
+  "AtmPressure": "Atmospheric pressure",
+  "hPa" : "hPa",
+  "hectopascals" : "Hectopascals",
+  "meter" : "meter",
+  "sec" : "sec",
   "Precipitation": "Precipitation",
   "TypeWRT": "Type",
   "Type": "Type",
@@ -27,6 +33,7 @@
   "NACommand": "No avaliable command",
   "NotACommand" : "Command not avaliable",
   "WEATHERdef" : "",
+  "NoWeather" : "Weather forecast not found",
   "TooManyArgs" : "Too many args",
   "DEPRECATED" : "DEPRECATED"
 }

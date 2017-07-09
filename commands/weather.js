@@ -1,6 +1,7 @@
 const axios = require('axios');
 const getFlag = require('../main/smiles').getFlag;
 const getWeatherIcon = require('../main/smiles').getWeatherIcon;
+const language = require('../lang/language.js');
 const url = require('../config.json').weather.url;
 const appid = require('../config.json').weather.appid;
 
@@ -14,10 +15,10 @@ const kelvinsToCelsius = k => round(k - 273.15);
 const kelvinsToFahrenheit = k => round(k * 9 / 5 - 459.67);
 
 module.exports.formatWeatherOutput = w =>
-`Weather for **${w.name}, ${w.sys.country}** ${getFlag(w.sys.country)}
-**Weather:**${w.weather.map(i => ' ' + i.description + ' ' + getWeatherIcon(i.icon))}
-**Temperature:** ${kelvinsToCelsius(w.main.temp)}°C | ${kelvinsToFahrenheit(w.main.temp)}°F
-**Wind speed:** ${w.wind.speed} meter/sec
-**Humidity:** ${w.main.humidity}%
-**Cloudiness:** ${w.clouds.all}%
-**Atmospheric pressure:** ${w.main.pressure} hPa`;
+`${language.getPhrase('WeatherFor')} **${w.name}, ${w.sys.country}** ${getFlag(w.sys.country)}
+**${language.getPhrase('Weather')}:**${w.weather.map(i => ' ' + i.description + ' ' + getWeatherIcon(i.icon))}
+**${language.getPhrase('Temperature')}:** ${kelvinsToCelsius(w.main.temp)}°C | ${kelvinsToFahrenheit(w.main.temp)}°F
+**${language.getPhrase('WindSpeed')}:** ${w.wind.speed} ${language.getPhrase('meter')}/${language.getPhrase('sec')}
+**${language.getPhrase('Humidity')}:** ${w.main.humidity}%
+**${language.getPhrase('Cloudiness')}:** ${w.clouds.all}%
+**${language.getPhrase('AtmPressure')}:** ${w.main.pressure} ${language.getPhrase('hPa')}\n`;

@@ -20,16 +20,12 @@ module.exports.commandParse = (msg, client) => {
       case commands.TEST:
         if (msg.author.id === config.authorid) {
           msg.channel.send(`TEST done`);
-        } else {
-          msg.channel.send(`${language.getPhrase('AvaliableCreator')}`);
-        }
+        } else msg.channel.send(language.getPhrase('AvaliableCreator'));
         break;
       case commands.AUTHOR:
-        if (service.enoughArgs(fields.length - 1)) {
+        if (service.enoughArgs(fields.length - 1))
           msg.channel.send(packageData.author);
-        } else {
-          msg.channel.send(language.getHelpExample(commands.AUTHOR));
-        }
+        else msg.channel.send(language.getHelpExample(commands.AUTHOR));
         break;
       case commands.SETGAME:
         if (msg.author.id === config.authorid) {
@@ -38,28 +34,22 @@ module.exports.commandParse = (msg, client) => {
               msg.content.substr(
                 config.prefix.length + commands.SETGAME.length + 1,
                 msg.content.length - 1));
-          } else {
-            msg.channel.send(
+          } else msg.channel.send(
               language.getHelpExample(commands.SETGAME, 'en', '*new game*'));
-          }
-        } else {
-          msg.channel.send(`${language.getPhrase('AvaliableCreator')}`);
-        }
+        } else msg.channel.send(language.getPhrase('AvaliableCreator'));
         break;
       case commands.RULES:
         if (service.enoughArgs(fields.length - 1)) {
           msg.member.send(
             `${language.getPhrase('RulesOf')} ***` +
             `${msg.guild.name}***\`\`\`${rules.rules.en}\`\`\``);
-        } else {
-          msg.channel.send(language.getHelpExample(commands.RULES));
-        }
+        } else msg.channel.send(language.getHelpExample(commands.RULES));
         break;
       case commands.RULESTO:
         break;
       case commands.WEATHER:
         const send = m => msg.reply(m);
-        const sendError = (e) => msg.reply('Weather forecast not found');
+        const sendError = (e) => msg.reply(language.getPhrase('NoWeather'));
         const sities = fields.slice(1);
         Promise.all(sities.map(getWeather))
         .then(p => p.map(formatWeatherOutput))
@@ -72,31 +62,27 @@ module.exports.commandParse = (msg, client) => {
             config.prefix.length + commands.SAY.length + 1,
             msg.content.length - 1);
           msg.guild.defaultChannel.send(strSay);
-        } else {
-          msg.channel.send(`${language.getPhrase('AvaliableCreator')}`);
-        }
+        } else msg.channel.send(language.getPhrase('AvaliableCreator'));
         break;
       case commands.HELP:
-        if (service.enoughArgs(fields.length - 1, 1)) {
-          switch (fields[1]) {
-            case commands.SAY:
-              break;
-            case commands.WEATHER:
-              break;
-            case commands.RULES:
-              break;
-            case commands.RULESTO:
-              break;
-            case commands.MAXZ:
-              break;
-            case commands.AUTHOR:
-              break;
-            case undefined:
-              //general info about all commands
-              break;
-            default:
-              msg.channel.send(language.getPhrase('NotACommand'));
-          }
+        switch (fields[1]) {
+          case commands.SAY:
+            break;
+          case commands.WEATHER:
+            break;
+          case commands.RULES:
+            break;
+          case commands.RULESTO:
+            break;
+          case commands.MAXZ:
+            break;
+          case commands.AUTHOR:
+            break;
+          case undefined:
+            //general info about all commands
+            break;
+          default:
+            msg.channel.send(language.getPhrase('NotACommand'));
         }
         break;
       default:
@@ -104,7 +90,7 @@ module.exports.commandParse = (msg, client) => {
           `${language.getPhrase('NACommand')}! ` +
           `${language.getPhrase('TypeWRT')} ***` +
           `${config.prefix}${commands.HELP}*** ` +
-          `${language.getPhrase('ForInfo')}`);
+          language.getPhrase('ForInfo'));
     }
   }
 };
